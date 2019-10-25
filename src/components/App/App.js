@@ -11,11 +11,15 @@ import Login from '../Login/Login.js';
 import Profile from '../Profile/Profile.js';
 import Places from '../Places/Places.js';
 import ForgotPassword from '../ForgotPassword/ForgotPassword.js';
+import Navigation from '../Navigation/Navigation.js';
  
 
 const App = () => {
   return (
     <div className='App'>
+      <Navigation />
+      <hr />
+      
       <Route exact path={ROUTES.LANDING} component={Landing} />
       <Route exact path={ROUTES.ABOUT} component={About} />
       <Route exact path={ROUTES.SIGN_UP} component={SignUp} />
