@@ -1,0 +1,13 @@
+.Navigation {
+  display: flex;
+  justify-content: space-between;
+}
+.LeftNav li, .RightNav li {
+  display: inline;
+  margin-left: 5px;
+  list-style-type: none;
+}
+
+.LeftNav li a:link, .RightNav li a:link {
+  text-decoration: none;
+}
