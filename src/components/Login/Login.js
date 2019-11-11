@@ -1,7 +1,7 @@
 import React, { useState, useContext } from "react";
 import * as ROUTES from "../../data/constants/routes.js";
 import { FirebaseContext } from "../Firebase/index.js";
-import { useHistory } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
 import { SignUpLink } from "../SignUp/SignUp.js";
 import { PasswordForgetLink } from "../ForgotPassword/ForgotPassword.js";
 
@@ -39,6 +39,7 @@ const LoginFormBase = () => {
         setEmail(INITIAL_STATE.email);
         setPassword(INITIAL_STATE.password);
         setError(INITIAL_STATE.error);
+        // TODO: If we where redirected, push to the redirect
         history.push(ROUTES.PLACES);
       })
       .catch(error => {

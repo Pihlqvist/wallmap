@@ -13,6 +13,7 @@ import Places from "../Places/Places.js";
 import ForgotPassword from "../ForgotPassword/ForgotPassword.js";
 import Navigation from "../Navigation/Navigation.js";
 import { ProvideAuth } from "../Session/UserAuth.js";
+import { PrivateRoute } from "../PrivateRoute/PrivateRoute.js";
 
 const App = () => {
   return (
