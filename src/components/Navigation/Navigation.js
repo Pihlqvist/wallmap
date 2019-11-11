@@ -10,7 +10,11 @@ const Navigation = () => {
   const auth = useAuth();
 	return (
     <div className="Navigation">
-      <LeftNav />
+      {auth.user ? (
+        <LeftNavAuth />
+      ) : (
+        <LeftNavNonAuth />
+      )}
       {auth.user ? (
         <RightNavAuth authUser={auth.user}/>
       ) : (
@@ -20,7 +24,7 @@ const Navigation = () => {
   )
 }
 
-const LeftNav = () => {
+const LeftNavNonAuth = () => {
   return (
     <div className="LeftNav">
       <ul>
@@ -29,6 +33,24 @@ const LeftNav = () => {
         </li>
         <li>
           <Link to={ROUTES.ABOUT}>About</Link>
+        </li>
+      </ul>
+    </div>
+  )
+}
+
+const LeftNavAuth = () => {
+  return (
+    <div className="LeftNav">
+      <ul>
+        <li>
+        <Link to={ROUTES.LANDING}>WallMap</Link>
+        </li>
+        <li>
+          <Link to={ROUTES.ABOUT}>About</Link>
+        </li>
+        <li>
+          <Link to={ROUTES.PLACES}>Places</Link>
         </li>
       </ul>
     </div>
