@@ -1,18 +1,24 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
 import * as ROUTES from '../../data/constants/routes.js';
+import { useAuth } from "../Session/UserAuth.js";
+import { LogOutButton } from "../Logout/Logout.js";
 
 import './Navigation.css';
 
 const Navigation = () => {
+  const auth = useAuth();
 	return (
-			<div className="Navigation">
-				<LeftNav />
-        <RightNav />
-			</div>
-		)
+    <div className="Navigation">
+      <LeftNav />
+      {auth.user ? (
+        <RightNavAuth authUser={auth.user}/>
+      ) : (
+        <RightNavNonAuth />
+      )}
+    </div>
+  )
 }
-export default Navigation;
 
 const LeftNav = () => {
   return (
@@ -29,7 +35,22 @@ const LeftNav = () => {
   )
 }
 
-const RightNav = () => {
+const RightNavAuth = ({ authUser }) => {
+  return (
+    <div className="RightNav">
+      <ul>
+        <li>
+          {authUser.email}
+        </li>
+        <li>
+          <LogOutButton />
+        </li>
+      </ul>
+    </div>
+  )
+}
+
+const RightNavNonAuth = () => {
   return (
     <div className="RightNav">
       <ul>
@@ -43,3 +64,5 @@ const RightNav = () => {
     </div>
   )
 }
+
+export default Navigation;
