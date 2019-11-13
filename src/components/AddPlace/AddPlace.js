@@ -1,75 +1,64 @@
-import React, {useState} from 'react';
+import React, { useState } from "react";
 
-import './AddPlace.css';
+import "./AddPlace.css";
 
 const AddPlace = () => {
-	const [name, setName] = useState("");
-	const [location, setLocation] = useState("");
-	const [date, setDate] = useState(null);
-	const [description, setDescription] = useState("");
-	const [image, setImage] = useState(null); 
+  const [name, setName] = useState("");
+  const [location, setLocation] = useState("");
+  const [date, setDate] = useState("");
+  const [description, setDescription] = useState("");
+  const [image, setImage] = useState("");
 
-	const handleNameChange = evt => setName(evt.target.value);
-	
-	const handleLocationChange = evt => setLocation(evt.target.value);
-	
-	const handleDateChange = evt => setDate(evt.target.value);
-
-	const handleDescriptionChange = evt => setDescription(evt.target.value);
-	
-	const handleImageChange = evt => setImage(evt.target.value);
-
-	const handleSubmit = evt => {
+  const handleSubmit = evt => {
 		evt.preventDefault();
-	}
+  };
 
-	return (
-		<form className="AddPlace" onSubmit={handleSubmit}>
-			<Row label="Name:">
+  return (
+    <form className="AddPlace" onSubmit={handleSubmit}>
+      <Row label="Name:">
 				<input 
-					value={name}
-					onChange={handleNameChange}
+					value={name} 
+					onChange={evt => setName(evt.target.value)}
 				/>
-			</Row>
-			<Row label="Location:">
+      </Row>
+      <Row label="Location:">
 				<input 
-					value={location}
-					onChange={handleLocationChange}
+					value={location} 
+					onChange={ evt => setLocation(evt.target.value)} 
 				/>
-			</Row>
-			<Row label="Date:">
+      </Row>
+      <Row label="Date:">
 				<input 
-					value={date}
-					type="date"
-					onChange={handleDateChange}
+					value={date} 
+					type="date" 
+					onChange={evt => setDate(evt.target.value)} 
 				/>
-			</Row>
-			<Row label="Description">
+      </Row>
+      <Row label="Description">
 				<input 
-					value={description}
-					onChange={handleDescriptionChange}
+					value={description} 
+					onChange={evt => setDescription(evt.target.value)} 
 				/>
-			</Row>
-			<Row label="Image (Images)">
+      </Row>
+      <Row label="Image (Images)">
 				<input 
-					value={image}
-					type="file"
-					onChange={handleImageChange}
+					value={image} 
+					type="file" 
+					onChange={evt => setImage(evt.target.value)} 
 				/>
-			</Row>
-			<Row>
-				<input 
-					type="submit"
-				/>
-			</Row>
-		</form>
-	);
-}
-export default AddPlace;
+      </Row>
+      <Row>
+				<input type="submit" />
+      </Row>
+    </form>
+  );
+};
 
 const Row = props => (
-	<div className="Row">
-		<span className="rowTitle">{props.label}</span>
-<span className="rowContent">{props.children}</span>
-	</div>
-)
+  <div className="Row">
+    <span className="rowTitle">{props.label}</span>
+    <span className="rowContent">{props.children}</span>
+  </div>
+);
+
+export default AddPlace;
