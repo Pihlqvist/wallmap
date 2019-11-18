@@ -4,11 +4,9 @@ import AddPlace from "../AddPlace/AddPlace";
 import { useFirebase } from "../Firebase";
 import {Place, PlaceList} from "../Place/Place";
 import ModalWrapper from "../Modal/Modal";
+import { useAuth } from "../Session/UserAuth";
 
 import "./Places.css";
-
-
-const USR_ID = "X4jhoPncjLXpSLJPTJywB0CFo4A2";
 
 const Places = () => {
   const [places, setPlaces] = useState(null);
@@ -17,17 +15,21 @@ const Places = () => {
   const [modal, setModal] = useState({showing: false, comp: null});
   
   const firebase = useFirebase();
+  const auth = useAuth();
 	
   useEffect(() => {
-    console.log("setPlaces");
-    // Get users places from firebase
-    firebase.usrPlace(USR_ID).once('value').then((snapshot) => {
-      let keys = Object.keys(snapshot.val());
-      let firebasePlaces = Object.values(snapshot.val());
-      firebasePlaces.forEach((place, idx) => place.id = keys[idx]);
-      setPlaces(firebasePlaces);
-    });
-  }, []);
+    if (auth.user) {  // TODO: Change this to work with PrivateRouter
+      console.log("setPlaces");
+      // Get users places from firebase
+      firebase.usrPlace(auth.user.uid).on('value', (snapshot) => {
+        let keys = Object.keys(snapshot.val());
+        let firebasePlaces = Object.values(snapshot.val());
+        firebasePlaces.forEach((place, idx) => place.id = keys[idx]);
+        console.log(firebasePlaces);
+        setPlaces(firebasePlaces);
+      });
+    }
+  }, [auth]);
 
   useEffect(() => {
     if (places) {
@@ -51,10 +53,16 @@ const Places = () => {
     setModal({showing: !modal.showing, comp: modal.comp})
   }
 
+  const hide = () => {
+    setModal({showing: false, comp: null});
+  }
+
+  console.log(modal);
+
   return (
     <div className="Places">
       <button 
-        onClick={() => setModal({showing: true, comp: <AddPlace />})}
+        onClick={() => setModal({showing: true, comp: <AddPlace hide={hide}/>})}
       >
         Add
       </button>

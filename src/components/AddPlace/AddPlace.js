@@ -1,17 +1,40 @@
 import React, { useState } from "react";
+import { useAuth } from "../Session/UserAuth";
 
 import "./AddPlace.css";
+import { useFirebase } from "../Firebase";
+import { AssertionError } from "assert";
 
-const AddPlace = () => {
+const AddPlace = ({hide}) => {
   const [name, setName] = useState("");
   const [location, setLocation] = useState("");
+  const [lat, setLat] = useState("0");
+  const [lng, setLng] = useState("0");
   const [date, setDate] = useState("");
   const [description, setDescription] = useState("");
   const [image, setImage] = useState("");
 
+  const auth = useAuth();
+  const firebase = useFirebase();
+
   const handleSubmit = evt => {
-		evt.preventDefault();
+    evt.preventDefault();
+    const refKey = firebase.usrPlace(auth.user.uid).push({
+      name,
+      location: {lat: parseInt(lat), lng: parseInt(lng)},
+      date: Date(date),
+      description,
+      image: "",
+    });
+    //console.log(refKey);
+    hide();
   };
+
+  const isInvalid =
+    description === "" ||
+    date === "" ||
+    name === "" ||
+    lat === "" || lng === "";
 
   return (
     <form className="AddPlace" onSubmit={handleSubmit}>
@@ -22,15 +45,29 @@ const AddPlace = () => {
 				/>
       </Row>
       <Row label="Location:">
-				<input 
-					value={location} 
-					onChange={ evt => setLocation(evt.target.value)} 
+        <input 
+          placeholder="latitude"
+          type="number"
+          value={lat} 
+          step="0.05"
+          min={-90}
+          max={90}
+					onChange={ evt => setLat(evt.target.value)} 
 				/>
+        <input
+          placeholder="longitude"
+          type="number"
+          value={lng}
+          step="0.05"
+          min={-180}
+          max={180}
+          onChange={ evt => setLng(evt.target.value)}
+        />
       </Row>
       <Row label="Date:">
 				<input 
 					value={date} 
-					type="date" 
+					type="date"
 					onChange={evt => setDate(evt.target.value)} 
 				/>
       </Row>
@@ -41,14 +78,15 @@ const AddPlace = () => {
 				/>
       </Row>
       <Row label="Image (Images)">
-				<input 
+				<input
+          disabled={true}
 					value={image} 
 					type="file" 
 					onChange={evt => setImage(evt.target.value)} 
 				/>
       </Row>
       <Row>
-				<input type="submit" />
+				<input disabled={isInvalid} type="submit" />
       </Row>
     </form>
   );

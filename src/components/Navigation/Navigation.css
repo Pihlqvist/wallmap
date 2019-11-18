@@ -8,6 +8,10 @@
   list-style-type: none;
 }
 
+ul {
+  margin-right: 2rem;
+}
+
 .LeftNav li a:link, .RightNav li a:link {
   text-decoration: none;
 }

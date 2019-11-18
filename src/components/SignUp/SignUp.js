@@ -5,9 +5,11 @@ import { useHistory } from "react-router-dom";
 
 import * as ROUTES from "../../data/constants/routes";
 
+import "./SignUp.css";
+
 const SignUp = () => {
   return (
-    <div>
+    <div className="SignUpContainer">
       <h1>SignUp</h1>
       <SignUpForm />
     </div>
@@ -42,6 +44,7 @@ const SignUpForm = () => {
         return firebase.user(authUser.user.uid).set({
           username,
           email,
+          place: "",
         });
       })
       .then(() => {
@@ -66,6 +69,7 @@ const SignUpForm = () => {
 
   return (
     <form onSubmit={onSubmit}>
+      <div>
       <input
         name="username"
         value={username}
@@ -73,6 +77,8 @@ const SignUpForm = () => {
         type="text"
         placeholder="Full Name"
       />
+      </div>
+      <div>
       <input
         name="email"
         value={email}
@@ -80,6 +86,8 @@ const SignUpForm = () => {
         type="text"
         placeholder="Email Address"
       />
+      </div>
+      <div>
       <input
         name="passwordOne"
         value={passwordOne}
@@ -87,6 +95,8 @@ const SignUpForm = () => {
         type="password"
         placeholder="Password"
       />
+      </div>
+      <div>
       <input
         name="passwordTwo"
         value={passwordTwo}
@@ -94,6 +104,7 @@ const SignUpForm = () => {
         type="password"
         placeholder="Confirm Password"
       />
+      </div>
       <button disabled={isInvalid} type="submit">
         Sign Up
       </button>
@@ -113,3 +124,5 @@ const SignUpLink = () => {
 export default SignUp;
 
 export { SignUpForm, SignUpLink };
+
+

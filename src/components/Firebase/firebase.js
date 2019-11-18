@@ -75,7 +75,7 @@ class Firebase {
 
   /*** Place API ***/
 
-  usrPlace = (uid) => this.db.ref(`place/${uid}`);
+  usrPlace = (uid) => this.db.ref(`users/${uid}/place`);
 }
 
 export default Firebase;

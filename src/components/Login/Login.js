@@ -4,16 +4,21 @@ import { FirebaseContext } from "../Firebase/index.js";
 import { useHistory, useLocation } from "react-router-dom";
 import { SignUpLink } from "../SignUp/SignUp.js";
 import { PasswordForgetLink } from "../ForgotPassword/ForgotPassword.js";
+import { useAuth } from "../Session/UserAuth.js";
+
+import "./Login.css";
+
 
 const Login = () => {
+
   return (
     <div className="LoginContainer">
-      <h1>This is Login Page</h1>
+      <h1>Login</h1>
       <LoginForm />
       <PasswordForgetLink />
       <SignUpLink />
     </div>
-  );
+  )
 };
 
 const INITIAL_STATE = {
@@ -51,20 +56,24 @@ const LoginFormBase = () => {
 
   return (
     <form onSubmit={onSubmit}>
-      <input
-        name="email"
-        value={email}
-        onChange={evt => setEmail(evt.target.value)}
-        type="text"
-        placeholder="Email Address"
-      />
-      <input
-        name="password"
-        value={password}
-        onChange={evt => setPassword(evt.target.value)}
-        type="password"
-        placeholder="Password"
-      />
+      <Row lable="email">
+        <input
+          name="email"
+          value={email}
+          onChange={evt => setEmail(evt.target.value)}
+          type="text"
+          placeholder="Email Address"
+        />
+      </Row>
+      <Row lable="password">
+        <input
+          name="password"
+          value={password}
+          onChange={evt => setPassword(evt.target.value)}
+          type="password"
+          placeholder="Password"
+        />
+      </Row>
       <button disabled={isInvalid} type="submit">
         Sign In
       </button>
@@ -79,3 +88,10 @@ const LoginForm = LoginFormBase;
 export default Login;
 
 export { LoginForm };
+
+const Row = props => (
+  <div className="Row">
+    <span className="rowTitle">{props.label}</span>
+    <span className="rowContent">{props.children}</span>
+  </div>
+);
