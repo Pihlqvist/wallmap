@@ -1,20 +1,30 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
 import * as ROUTES from '../../data/constants/routes.js';
+import { useAuth } from "../Session/UserAuth.js";
+import { LogOutButton } from "../Logout/Logout.js";
 
 import './Navigation.css';
 
 const Navigation = () => {
+  const auth = useAuth();
 	return (
-			<div className="Navigation">
-				<LeftNav />
-        <RightNav />
-			</div>
-		)
+    <div className="Navigation">
+      {auth.user ? (
+        <LeftNavAuth />
+      ) : (
+        <LeftNavNonAuth />
+      )}
+      {auth.user ? (
+        <RightNavAuth authUser={auth.user}/>
+      ) : (
+        <RightNavNonAuth />
+      )}
+    </div>
+  )
 }
-export default Navigation;
 
-const LeftNav = () => {
+const LeftNavNonAuth = () => {
   return (
     <div className="LeftNav">
       <ul>
@@ -29,7 +39,40 @@ const LeftNav = () => {
   )
 }
 
-const RightNav = () => {
+const LeftNavAuth = () => {
+  return (
+    <div className="LeftNav">
+      <ul>
+        <li>
+        <Link to={ROUTES.LANDING}>WallMap</Link>
+        </li>
+        <li>
+          <Link to={ROUTES.ABOUT}>About</Link>
+        </li>
+        <li>
+          <Link to={ROUTES.PLACES}>Places</Link>
+        </li>
+      </ul>
+    </div>
+  )
+}
+
+const RightNavAuth = ({ authUser }) => {
+  return (
+    <div className="RightNav">
+      <ul>
+        <li>
+          {authUser.email}
+        </li>
+        <li>
+          <LogOutButton />
+        </li>
+      </ul>
+    </div>
+  )
+}
+
+const RightNavNonAuth = () => {
   return (
     <div className="RightNav">
       <ul>
@@ -43,3 +86,5 @@ const RightNav = () => {
     </div>
   )
 }
+
+export default Navigation;

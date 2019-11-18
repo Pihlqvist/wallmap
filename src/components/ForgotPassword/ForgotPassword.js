@@ -1,4 +1,7 @@
 import React, {Component} from 'react';
+import { Link } from 'react-router-dom';
+
+import * as ROUTES from '../../data/constants/routes.js';
 
 const ForgotPassword = () => {
 	return (
@@ -7,4 +10,13 @@ const ForgotPassword = () => {
 			</div>
 		)
 }
+
+const PasswordForgetLink = () => (
+  <p>
+    <Link to={ROUTES.FORGOT_PASSWORD}>Forgot Password?</Link>
+  </p>
+);
+
 export default ForgotPassword;
+
+export { PasswordForgetLink };
