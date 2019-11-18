@@ -8,32 +8,7 @@ import ModalWrapper from "../Modal/Modal";
 import "./Places.css";
 
 
-const temp_places = [
-  {
-    id: 1,
-    name: "Place1",
-    location: { lat: 37.78, lng: -122.41 },
-    date: Date("today"),
-    description: "description1",
-    images: [{ img: "img1" }, { img: "img2" }],
-    chat: null
-  },
-  {
-    id: 2,
-    name: "Place2",
-    location: { lat: 37.0, lng: -122.0 },
-    date: Date("today"),
-    description: "description2",
-    images: [{ img: "img1" }, { img: "img2" }],
-    chat: null
-  }
-];
-
-function later(delay) {
-  return new Promise(function(resolve) {
-    setTimeout(resolve, delay);
-  });
-}
+const USR_ID = "X4jhoPncjLXpSLJPTJywB0CFo4A2";
 
 const Places = () => {
   const [places, setPlaces] = useState(null);
@@ -45,7 +20,13 @@ const Places = () => {
 	
   useEffect(() => {
     console.log("setPlaces");
-    later(4000).then(() => setPlaces(temp_places));
+    // Get users places from firebase
+    firebase.usrPlace(USR_ID).once('value').then((snapshot) => {
+      let keys = Object.keys(snapshot.val());
+      let firebasePlaces = Object.values(snapshot.val());
+      firebasePlaces.forEach((place, idx) => place.id = keys[idx]);
+      setPlaces(firebasePlaces);
+    });
   }, []);
 
   useEffect(() => {

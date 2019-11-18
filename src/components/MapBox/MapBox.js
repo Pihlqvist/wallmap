@@ -8,10 +8,10 @@ const MapBox = ({handleMarkerClick, markers}) => {
 
   const [viewport, setViewPort] = useState({
     width: "100vw",
-    height: "100vw",
-    latitude: 37.7577,
-    longitude: -122.4376,
-    zoom: 8,
+    height: "85vh",
+    latitude: 20,
+    longitude: 0,
+    zoom: 1,
   })
 
   return (
