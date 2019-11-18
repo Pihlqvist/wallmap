@@ -4,6 +4,11 @@
 
 This is an application where users can create a personal digital traveller map, to pin, store and show the images, information and dates of the places they have visited worldwide, and share that with friends. Friends can then comment and chat with user about each visited place. Pins can be categorised depending on travel reason (business, vacation, etc). 
 
+### How to use the webpage
+
+First sign up.
+Then click on `add` in the upper left corner. You will have to fill out the form, the location is currently only working with latitude and longitude. After you submit your place it will be stored on our backend and will show up on the map. Everytime you use the website the place will be there.
+
 ## What has been done
 
 We have done the main components and layout, user creation and login (authentication), and adding new visited places (not images yet). The places show up on the map as pins which can be clicked on and then pops up a place view/modal with the info of the place (with currently a temp random photo). Also the user can click on List button that shows the list of places visited. The app is connected to Firebase (Authentication and Realtime Database) and deployed (demo) on Firebase.  
