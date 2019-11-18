@@ -1,0 +1,25 @@
+.MapBox {
+  position: fixed;
+  z-index: -1;
+}
+
+.CustomMarker {
+  position: absolute;
+  background: #fff;
+
+  background-color: blue;
+  width: 1.5rem;
+  height: 1.5rem;
+  display: block;
+  left: -0.5rem;
+  top: -0.5rem;
+  border-radius: 1.5rem 1.5rem 0;
+  transform: rotate(45deg);
+  border: 1px solid #FFFFFF;
+}
+
+.CustomMarkerText {
+  position: absolute;
+  /* transform: rotate(-45deg); */
+  color: #fff;
+}
