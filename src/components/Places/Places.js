@@ -4,12 +4,16 @@ import AddPlace from "../AddPlace/AddPlace";
 import { useFirebase } from "../Firebase";
 import {Place, PlaceList} from "../Place/Place";
 import ModalWrapper from "../Modal/Modal";
+import { useAuth } from "../Session/UserAuth";
 
 import "./Places.css";
 
-
-const USR_ID = "X4jhoPncjLXpSLJPTJywB0CFo4A2";
-
+/**
+ * Places is a stateful component that contains the users place objects
+ * and the map component. This component gives the map the place objects
+ * to draw as markers and handels user interactions like adding and 
+ * removing places.
+ */
 const Places = () => {
   const [places, setPlaces] = useState(null);
   const [markers, setMarkers] = useState(null);
@@ -17,21 +21,23 @@ const Places = () => {
   const [modal, setModal] = useState({showing: false, comp: null});
   
   const firebase = useFirebase();
-	
+  const auth = useAuth();
+  
+  // Get user place from fierbase
   useEffect(() => {
-    console.log("setPlaces");
-    // Get users places from firebase
-    firebase.usrPlace(USR_ID).once('value').then((snapshot) => {
-      let keys = Object.keys(snapshot.val());
-      let firebasePlaces = Object.values(snapshot.val());
-      firebasePlaces.forEach((place, idx) => place.id = keys[idx]);
-      setPlaces(firebasePlaces);
-    });
-  }, []);
+    if (auth.user) {
+      firebase.place(auth.user.uid).on('value', (snapshot) => {
+        let keys = Object.keys(snapshot.val());
+        let firebasePlaces = Object.values(snapshot.val());
+        firebasePlaces.forEach((place, idx) => place.id = keys[idx]);
+        setPlaces(firebasePlaces);
+      });
+    }
+  }, [auth, firebase]);
 
+  // Create markers from place objects
   useEffect(() => {
     if (places) {
-      console.log("setMarkers");
       setMarkers(
         places.map(place => {
           return { id: place.id, location: place.location };
@@ -40,13 +46,15 @@ const Places = () => {
     }
   }, [places]);
 
+  // When a marker have been clicked we open a place component 
+  // with the corresponding place object
   const handleMarkerClick = evt => {
     let targetId = evt.currentTarget.id;
     let aPlace = places.filter(place => place.id == targetId);
-    // console.log("aPlace: ", aPlace);
     setModal({showing: true, comp: <Place place={aPlace[0]} />});
   };
   
+  // Toggle a model
 	const toggle = () => {
     setModal({showing: !modal.showing, comp: modal.comp})
   }

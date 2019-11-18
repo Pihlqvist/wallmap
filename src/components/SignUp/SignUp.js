@@ -42,6 +42,7 @@ const SignUpForm = () => {
         return firebase.user(authUser.user.uid).set({
           username,
           email,
+          place: "",
         });
       })
       .then(() => {
