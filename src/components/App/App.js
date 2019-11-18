@@ -15,6 +15,8 @@ import Navigation from "../Navigation/Navigation.js";
 import { ProvideAuth } from "../Session/UserAuth.js";
 import { PrivateRoute } from "../PrivateRoute/PrivateRoute.js";
 
+import AddPlace from '../AddPlace/AddPlace.js';
+
 const App = () => {
   return (
     <ProvideAuth>
@@ -29,6 +31,9 @@ const App = () => {
         <Route exact path={ROUTES.PROFILE} component={Profile} />
         <Route exact path={ROUTES.PLACES} component={Places} />
         <Route exact path={ROUTES.FORGOT_PASSWORD} component={ForgotPassword} />
+
+        {/* Testing AddPlace component */}
+        <Route exact path = {ROUTES.ADD_PLACE} component={AddPlace} />
       </div>
     </ProvideAuth>
   );
