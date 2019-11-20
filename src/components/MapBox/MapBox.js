@@ -1,7 +1,6 @@
 import React, {useState} from "react";
 import ReactMapGL, {BaseControl} from "react-map-gl";
 
-import 'mapbox-gl/dist/mapbox-gl.css';
 import "./MapBox.css";
 
 const MapBox = ({handleMarkerClick, markers}) => {
