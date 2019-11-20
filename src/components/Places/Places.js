@@ -55,11 +55,15 @@ const Places = () => {
     }
     setModal({showing: true, comp: <Place place={aPlace[0]} />});
   }
+  
+  const hide = () => {
+    setModal({showing: false, comp: modal.comp});
+  }
 
   return (
     <div className="Places">
       <button 
-        onClick={() => setModal({showing: true, comp: <AddPlace />})}
+        onClick={() => setModal({showing: true, comp: <AddPlace hide={hide}/>})}
       >
         Add
       </button>
