@@ -74,7 +74,7 @@ class CustomMarker extends BaseControl {
         style={markerStyle}
         id={this.props.id}
       >
-        <span className="CustomMarkerText">{this.props.id}</span>
+        {/* <span className="CustomMarkerText">{this.props.id}</span> */}
       </div>
     );
   }

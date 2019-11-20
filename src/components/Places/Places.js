@@ -27,10 +27,12 @@ const Places = () => {
   useEffect(() => {
     if (auth.user) {
       firebase.place(auth.user.uid).on('value', (snapshot) => {
-        let keys = Object.keys(snapshot.val());
-        let firebasePlaces = Object.values(snapshot.val());
-        firebasePlaces.forEach((place, idx) => place.id = keys[idx]);
-        setPlaces(firebasePlaces);
+        if (snapshot.val()) {
+          let keys = Object.keys(snapshot.val());
+          let firebasePlaces = Object.values(snapshot.val());
+          firebasePlaces.forEach((place, idx) => place.id = keys[idx]);
+          setPlaces(firebasePlaces);
+        }
       });
     }
   }, [auth, firebase]);
@@ -59,10 +61,14 @@ const Places = () => {
     setModal({showing: !modal.showing, comp: modal.comp})
   }
 
+  const hide = () => {
+    setModal({showing: false, comp: modal.comp});
+  }
+
   return (
     <div className="Places">
       <button 
-        onClick={() => setModal({showing: true, comp: <AddPlace />})}
+        onClick={() => setModal({showing: true, comp: <AddPlace hide={hide}/>})}
       >
         Add
       </button>

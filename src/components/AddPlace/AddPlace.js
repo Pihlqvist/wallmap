@@ -1,16 +1,38 @@
 import React, { useState } from "react";
+import { useFirebase } from "../Firebase";
+import { useAuth } from "../Session/UserAuth";
 
 import "./AddPlace.css";
 
-const AddPlace = () => {
+const AddPlace = ({hide}) => {
   const [name, setName] = useState("");
   const [location, setLocation] = useState("");
   const [date, setDate] = useState("");
   const [description, setDescription] = useState("");
   const [image, setImage] = useState("");
 
+  const auth = useAuth();
+  const firebase = useFirebase();
+
+  const randomLocation = () => (
+    {
+      lat: (Math.random()*180-90),
+      lng: (Math.random()*360-180),
+    }
+  );
+
   const handleSubmit = evt => {
-		evt.preventDefault();
+    evt.preventDefault();
+    let loc = randomLocation();
+    // Add the place to firebase
+    const refKey = firebase.place(auth.user.uid).push({
+      name,
+      location: loc,
+      date: Date(date),
+      description,
+      image: "",
+    });
+    hide();
   };
 
   return (
