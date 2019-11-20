@@ -3,6 +3,7 @@ import { usePlaces } from "../Places/Places";
 import { useFirebase } from "../Firebase";
 import { useAuth } from "../Session/UserAuth";
 
+import { Icon } from '@material-ui/core';
 import "./PlaceTable.css";
 
 const PlaceTable = ({ selectPlace }) => {
@@ -69,10 +70,10 @@ const PlaceRow = ({ place, selectPlace }) => {
       <td>{Math.round(place.location.lat)}, {Math.round(place.location.lng)}</td>
       <td>{place.date.toLocaleDateString()}</td>
       <td>
-        <i className="material-icons">edit</i>
+        <Icon>edit</Icon>
       </td>
       <td>
-        <i className="material-icons" onClick={() => removePlace()}>remove_circle_outline</i>
+        <i className="material-icons BtnRmv" onClick={() => removePlace()}>remove_circle_outline</i>
       </td>
     </tr>
   );

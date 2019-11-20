@@ -1,3 +1,4 @@
+
 .PlaceTable {
   table-layout: fixed;
   width: 100%;
@@ -44,4 +45,10 @@
 }
 .RowBtn {
   width: 10%;
+}
+
+/* Buttons */
+
+.BtnRmv:hover {
+  color: crimson;
 }

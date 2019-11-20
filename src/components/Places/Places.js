@@ -5,7 +5,7 @@ import { useFirebase } from "../Firebase";
 import {Place} from "../Place/Place";
 import ModalWrapper from "../Modal/Modal";
 import { useAuth } from "../Session/UserAuth";
-import PlaceTable from "../Place/PlaceTable";
+import MPlaceTable from "../Place/MaterialTable";
 
 import "./Places.css";
 
@@ -72,7 +72,7 @@ const Places = () => {
         onClick={() => setModal(
           {
             showing: true, 
-            comp: <PlaceTable places={places} selectPlace={selectPlace} />
+            comp: <MPlaceTable places={places} selectPlace={selectPlace} />
           }
         )}
       >
