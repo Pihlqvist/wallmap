@@ -1,0 +1,47 @@
+.PlaceTable {
+  table-layout: fixed;
+  width: 100%;
+  white-space: nowrap;
+  border-collapse: collapse;
+}
+
+.PlaceTable th{
+  background: darkcyan;
+  color: white;
+}
+
+.PlaceTable td {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.PlaceTable td, .PlaceTable th {
+  text-align: left;
+  padding: 5px 10px;
+}
+
+.PlaceTable tr:nth-child(even) {
+  background: rgb(233, 233, 233);
+}
+
+.PlaceTable tr:hover {
+  background-color: #ffff99;
+}
+
+/* Column widths are based on these cells */
+.RowImg {
+  width: 10%;
+}
+.RowName {
+  width: 25%;
+}
+.RowLocation {
+  width: 25%;
+}
+.RowDate {
+  width: 20%;
+}
+.RowBtn {
+  width: 10%;
+}
