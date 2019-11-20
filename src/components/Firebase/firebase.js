@@ -77,8 +77,16 @@ class Firebase {
 
   /**
    * Get a referance to a users place objects
+   * @param {string} uid user id
    */   
   place = (uid) => this.db.ref(`users/${uid}/place`);
+
+  /**
+   * Get a referance to a users specific place object
+   * @param {string} uid user id
+   * @param {string} pid place id
+   */   
+  placeref = (uid, pid) => this.db.ref(`users/${uid}/place/${pid}`);
 }
 
 export default Firebase;
