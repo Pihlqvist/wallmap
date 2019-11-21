@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import * as opencage from 'opencage-api-client';
 import { useFirebase } from "../Firebase";
 import { useAuth } from "../Session/UserAuth";
 
@@ -14,24 +15,43 @@ const AddPlace = ({hide}) => {
   const auth = useAuth();
   const firebase = useFirebase();
 
-  const randomLocation = () => (
-    {
-      lat: (Math.random()*180-90),
-      lng: (Math.random()*360-180),
-    }
+
+  const handleLocation = () => (
+    opencage
+      .geocode({key: process.env.REACT_APP_OCD_API_KEY, q: location})
+      .then(response => response.results)
+      .then(results => {
+        if(results) {
+          const {lat, lng} = results[0].geometry;
+          return {lat, lng};
+          // setGeoResults(results[0]);
+          // let lat = results[0].geometry.lat; 
+          // let lng = results[0].geometry.lng; 
+        }
+      })
+      .then(({lat, lng}) => {
+        console.log(lat, lng);
+        // Add the place to firebase
+        const refKey = firebase.place(auth.user.uid).push({
+          name,
+          location: {lat, lng},
+          date: Date(date),
+          description,
+          image: "",
+        });
+      })
+      .catch(error => {
+        console.log('error', error.message);
+      })
+    // {
+    //   lat: (Math.random()*180-90),
+    //   lng: (Math.random()*360-180),
+    // }
   );
 
   const handleSubmit = evt => {
     evt.preventDefault();
-    let loc = randomLocation();
-    // Add the place to firebase
-    const refKey = firebase.place(auth.user.uid).push({
-      name,
-      location: loc,
-      date: Date(date),
-      description,
-      image: "",
-    });
+    handleLocation();
     hide();
   };
 
@@ -82,5 +102,6 @@ const Row = props => (
     <span className="rowContent">{props.children}</span>
   </div>
 );
+
 
 export default AddPlace;
