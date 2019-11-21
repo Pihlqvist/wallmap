@@ -7,6 +7,10 @@ import ModalWrapper from "../Modal/Modal";
 import { useAuth } from "../Session/UserAuth";
 import MPlaceTable from "../Place/MaterialTable";
 
+import { Fab } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
+import Icon from '@material-ui/core/Icon';
+
 import "./Places.css";
 
 /**
@@ -18,10 +22,12 @@ import "./Places.css";
 const Places = () => {
   const [markers, setMarkers] = useState(null);
   const [modal, setModal] = useState({showing: false, comp: null});
+  const [table, setTable] = useState(null);
   
   const firebase = useFirebase();   // TODO: Needed after places hook ?
   const auth = useAuth();           // TODO: Needed after places hook ?
   const places = usePlaces();
+  const classes = useStyles();
 
   // Create markers from place objects
   useEffect(() => {
@@ -32,6 +38,10 @@ const Places = () => {
         })
       );
     }
+  }, [places]);
+
+  useEffect(() => {
+    setTable(<MPlaceTable places={places} selectPlace={selectPlace} />);
   }, [places]);
 
   // When a marker have been clicked we open a place component 
@@ -62,22 +72,27 @@ const Places = () => {
 
   return (
     <div className="Places">
-      <button 
-        onClick={() => setModal({showing: true, comp: <AddPlace hide={hide}/>})}
-      >
-        Add
-      </button>
-      <button
-        disabled={!places}
-        onClick={() => setModal(
-          {
-            showing: true, 
-            comp: <MPlaceTable places={places} selectPlace={selectPlace} />
-          }
-        )}
-      >
-        List
-      </button>
+      <div className="BtnArea">
+        <Fab size="medium" color="secondary" aria-label="add" className={classes.margin}>
+          <Icon onClick={() => 
+            setModal({showing: true, comp: <AddPlace hide={hide}/>})}
+          >
+            add
+          </Icon>
+        </Fab>
+        <Fab size="medium" color="secondary" aria-label="add" className={classes.margin}>
+          <Icon
+            onClick={() => setModal(
+              {
+                showing: true, 
+                comp: table,
+              }
+            )}
+          >
+            list
+          </Icon>
+        </Fab>
+      </div>
       <MapBox 
         handleMarkerClick={handleMarkerClick} 
         markers={markers} 
@@ -135,3 +150,13 @@ const usePlaces = () => {
 export default Places;
 
 export { usePlaces }
+
+
+const useStyles = makeStyles(theme => ({
+  margin: {
+    margin: theme.spacing(1),
+  },
+  extendedIcon: {
+    marginRight: theme.spacing(1),
+  },
+}));
