@@ -10,7 +10,7 @@ const AddPlace = ({hide}) => {
   const [location, setLocation] = useState("");
   const [date, setDate] = useState("");
   const [description, setDescription] = useState("");
-  const [image, setImage] = useState("");
+  const [image, setImage] = useState(null);
   const [suggestions, setSuggestions] = useState([]);
 
   const auth = useAuth();
@@ -61,6 +61,12 @@ const AddPlace = ({hide}) => {
           image: "",
         }
       );
+      if (image) {
+        const ref = firebase.images(auth.user.uid, refKey.path.pieces_[3]).child(image.name);
+        ref.put(image).then((snapshot) => {
+          console.log("uploaded image");
+        });
+      }
       hide();
     }
     else {  // We din't get a good result from API
@@ -86,8 +92,8 @@ const AddPlace = ({hide}) => {
           list="datalist"
           onChange={ evt => setLocation(evt.target.value)} 
         />
-        <datalist id="datalist" onClick={() => console.log("click")}>
-          {suggestions.map((value, idx) => <option key={idx} value={value.formatted} />)}
+        <datalist id="datalist">
+          {suggestions.map((value, idx) => <option key={idx} value={value.formatted} onClick={() => console.log("lciK")}/>)}
         </datalist>
       </Row>
       <Row label="Date:">
@@ -105,13 +111,12 @@ const AddPlace = ({hide}) => {
       </Row>
       <Row label="Image (Images)">
 				<input 
-					value={image} 
 					type="file" 
-					onChange={evt => setImage(evt.target.value)} 
+					onChange={evt => setImage(evt.target.files[0])} 
 				/>
       </Row>
       <Row>
-				<input type="submit" disabled={isInvalid} />
+				<input type="submit" />
       </Row>
     </form>
   );
