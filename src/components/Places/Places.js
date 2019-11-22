@@ -28,7 +28,7 @@ const Places = () => {
     if (places) {
       setMarkers(
         places.map(place => {
-          return { id: place.id, location: place.location };
+          return { id: place.id, location: place.location.geometry };
         })
       );
     }

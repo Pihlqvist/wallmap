@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import * as opencage from 'opencage-api-client';
 import { useFirebase } from "../Firebase";
 import { useAuth } from "../Session/UserAuth";
 
@@ -10,30 +11,66 @@ const AddPlace = ({hide}) => {
   const [date, setDate] = useState("");
   const [description, setDescription] = useState("");
   const [image, setImage] = useState("");
+  const [suggestions, setSuggestions] = useState([]);
 
   const auth = useAuth();
   const firebase = useFirebase();
+  const debouncedSearchTerm = useDebounce(location, 500);
 
-  const randomLocation = () => (
-    {
-      lat: (Math.random()*180-90),
-      lng: (Math.random()*360-180),
-    }
-  );
+  // Set suggestions when debounce returns a value
+  useEffect(() => {
+    if (debouncedSearchTerm) {
+      // Fire off our API call
+      searchSuggestion(debouncedSearchTerm).then(results => {
+        setSuggestions(results);
+      });
+    } else {
+      setSuggestions([]);
+    }    
+  }, [debouncedSearchTerm])
 
-  const handleSubmit = evt => {
-    evt.preventDefault();
-    let loc = randomLocation();
-    // Add the place to firebase
-    const refKey = firebase.place(auth.user.uid).push({
-      name,
-      location: loc,
-      date: Date(date),
-      description,
-      image: "",
+  // Calls API with query and returns results
+  const searchSuggestion = (query) => {
+    return opencage
+    .geocode({key: process.env.REACT_APP_OCD_API_KEY, q: query})
+    .then(response => response.results)
+    .then(results => {
+      if(results) {
+        return results;
+      }
+      else {
+        console.log("no results");
+        return [];
+      }
+    })
+    .catch(error =>{
+      console.error(error);
+      return [];
     });
-    hide();
+  }
+
+  const handleSubmit = (evt) => {
+    evt.preventDefault();
+    if (suggestions) {
+      const refKey = firebase.place(auth.user.uid).push(
+        {
+          name,
+          location: suggestions[0],
+          date: Date(date),
+          description,
+          image: "",
+        }
+      );
+      hide();
+    }
+    else {  // We din't get a good result from API
+      alert("Plz specify another location");
+    }
   };
+
+  // Can't submit a place if these properties are not met
+  const isInvalid = name === "" ||
+    location === "";
 
   return (
     <form className="AddPlace" onSubmit={handleSubmit}>
@@ -44,10 +81,14 @@ const AddPlace = ({hide}) => {
 				/>
       </Row>
       <Row label="Location:">
-				<input 
-					value={location} 
-					onChange={ evt => setLocation(evt.target.value)} 
-				/>
+        <input 
+          value={location} 
+          list="datalist"
+          onChange={ evt => setLocation(evt.target.value)} 
+        />
+        <datalist id="datalist" onClick={() => console.log("click")}>
+          {suggestions.map((value, idx) => <option key={idx} value={value.formatted} />)}
+        </datalist>
       </Row>
       <Row label="Date:">
 				<input 
@@ -70,7 +111,7 @@ const AddPlace = ({hide}) => {
 				/>
       </Row>
       <Row>
-				<input type="submit" />
+				<input type="submit" disabled={isInvalid} />
       </Row>
     </form>
   );
@@ -83,4 +124,27 @@ const Row = props => (
   </div>
 );
 
+/**
+ * Debounce Hook, returns value after a delay
+ * @param {string} value 
+ * @param {number} delay 
+ */
+function useDebounce(value, delay) {
+  // State and setters for debounced value
+  const [debouncedValue, setDebouncedValue] = useState(value);
+
+  useEffect(() => {
+    // Set debouncedValue to value (passed in) after the specified delay
+    const handler = setTimeout(() => {
+      setDebouncedValue(value);
+    }, delay);
+
+    return () => clearTimeout(handler);
+  },[value]);
+
+  return debouncedValue;
+}
+
 export default AddPlace;
+
+export { useDebounce }
