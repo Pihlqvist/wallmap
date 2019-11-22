@@ -45,7 +45,7 @@ const PlaceRow = ({ place, selectPlace }) => {
         <img alt="p" />
       </td>
       <td>{place.name}</td>
-      <td>{Math.round(place.location.lat)}, {Math.round(place.location.lng)}</td>
+      <td>{place.location.formatted}</td>
       <td>{place.date.toLocaleDateString()}</td>
       <td>
         <i className="material-icons">edit</i>

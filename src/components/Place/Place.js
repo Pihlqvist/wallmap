@@ -1,11 +1,12 @@
 import React from "react";
 
 const Place = ({ place }) => {
+  console.log("PLACE: ", place);
   return (
     <div className="Place">
       <h2>{place.name}</h2>
       <p>
-        Location: {place.location.lat}, {place.location.lng}
+        Location: {place.location.formatted}
       </p>
       <p>Date: {place.date.toLocaleDateString()}</p>
       <p>Description: {place.description}</p>
