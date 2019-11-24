@@ -13,9 +13,9 @@ import Places from "../Places/Places.js";
 import ForgotPassword from "../ForgotPassword/ForgotPassword.js";
 import Navigation from "../Navigation/Navigation.js";
 import { ProvideAuth } from "../Session/UserAuth.js";
-import { PrivateRoute } from "../PrivateRoute/PrivateRoute.js";
+import { PrivateRoute } from "../Route/PrivateRoute.js";
+import { AuthorizedRoute } from "../Route/AuthorizedRoute.js";
 
-import AddPlace from '../AddPlace/AddPlace.js';
 
 const App = () => {
   return (
@@ -24,16 +24,14 @@ const App = () => {
         <Navigation />
         <hr />
 
-        <Route exact path={ROUTES.LANDING} component={Landing} />
+        <AuthorizedRoute exact path={ROUTES.LANDING} component={Landing} />
         <Route exact path={ROUTES.ABOUT} component={About} />
-        <Route exact path={ROUTES.SIGN_UP} component={SignUp} />
-        <Route exact path={ROUTES.LOGIN} component={Login} />
-        <Route exact path={ROUTES.PROFILE} component={Profile} />
-        <Route exact path={ROUTES.PLACES} component={Places} />
-        <Route exact path={ROUTES.FORGOT_PASSWORD} component={ForgotPassword} />
+        <AuthorizedRoute exact path={ROUTES.SIGN_UP} component={SignUp} />
+        <AuthorizedRoute exact path={ROUTES.LOGIN} component={Login} />
+        <PrivateRoute exact path={ROUTES.PROFILE} component={Profile} />
+        <PrivateRoute exact path={ROUTES.PLACES} component={Places} />
+        <PrivateRoute exact path={ROUTES.FORGOT_PASSWORD} component={ForgotPassword} />
 
-        {/* Testing AddPlace component */}
-        <Route exact path = {ROUTES.ADD_PLACE} component={AddPlace} />
       </div>
     </ProvideAuth>
   );
