@@ -1,3 +1,15 @@
 .Places {
   display: flex;
 }
+
+.MapButtons {
+  margin: 1.6rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.MapBtn {
+  margin-bottom: .8rem !important;
+  background-color: #E7717D !important;
+  color: white !important;
+}
