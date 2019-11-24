@@ -5,13 +5,17 @@ import { useHistory, useLocation } from "react-router-dom";
 import { SignUpLink } from "../SignUp/SignUp.js";
 import { PasswordForgetLink } from "../ForgotPassword/ForgotPassword.js";
 
+import "./Login.css";
+
 const Login = () => {
   return (
-    <div className="LoginContainer">
-      <h1>This is Login Page</h1>
+    <div className="FormContainer1">
+      <h1>Login</h1>
       <LoginForm />
-      <PasswordForgetLink />
-      <SignUpLink />
+      <div className="LinkRow">
+        <PasswordForgetLink />
+        <SignUpLink />
+      </div>
     </div>
   );
 };
@@ -52,21 +56,25 @@ const LoginFormBase = () => {
   return (
     <form onSubmit={onSubmit}>
       <input
+        className="InputField1"
         name="email"
         value={email}
         onChange={evt => setEmail(evt.target.value)}
         type="text"
-        placeholder="Email Address"
+        placeholder="Email Address *"
+        autoComplete="current-email"
       />
       <input
+        className="InputField1"
         name="password"
         value={password}
         onChange={evt => setPassword(evt.target.value)}
         type="password"
-        placeholder="Password"
+        placeholder="Password *"
+        autoComplete="current-password"
       />
-      <button disabled={isInvalid} type="submit">
-        Sign In
+      <button disabled={isInvalid} type="submit" className="Btn1 LoginBtn">
+        Login
       </button>
 
       {error && <p>{error.message}</p>}
