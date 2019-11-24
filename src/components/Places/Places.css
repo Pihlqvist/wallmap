@@ -1,5 +1,6 @@
 .Places {
   display: flex;
+  justify-content: space-between;
 }
 
 .MapButtons {

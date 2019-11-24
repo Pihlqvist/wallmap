@@ -6,6 +6,7 @@ import {Place} from "../Place/Place";
 import ModalWrapper from "../Modal/Modal";
 import { useAuth } from "../Session/UserAuth";
 import PlaceTable from "../Place/PlaceTable";
+import { ProfileBtn } from "../Profile/Profile";
 
 import Fab from '@material-ui/core/Fab';
 import Icon from '@material-ui/core/Icon';
@@ -74,6 +75,7 @@ const Places = () => {
           }
         )}
       />
+      <ProfileBtn />
       <MapBox 
         handleMarkerClick={handleMarkerClick} 
         markers={markers} 
