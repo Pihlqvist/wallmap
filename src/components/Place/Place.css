@@ -1,0 +1,6 @@
+@import "~react-image-gallery/styles/css/image-gallery.css";
+
+.PlaceInfo {
+  display: flex;
+  justify-content: space-between;
+}

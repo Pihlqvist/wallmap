@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useFirebase } from "../Firebase";
 import { useAuth } from "../Session/UserAuth";
+import ImageGallery from 'react-image-gallery';
+
+import "./Place.css";
 
 const Place = ({ place }) => {
   const firebase = useFirebase();
@@ -26,18 +29,30 @@ const Place = ({ place }) => {
     });
   }, [firebase]);
 
+  const images = [
+    {
+      original: 'https://picsum.photos/id/1018/1000/600/',
+      thumbnail: 'https://picsum.photos/id/1018/250/150/',
+    },
+    {
+      original: 'https://picsum.photos/id/1015/1000/600/',
+      thumbnail: 'https://picsum.photos/id/1015/250/150/',
+    },
+    {
+      original: 'https://picsum.photos/id/1019/1000/600/',
+      thumbnail: 'https://picsum.photos/id/1019/250/150/',
+    },
+  ];
+
   return (
     <div className="Place">
       <h2>{place.name}</h2>
-      <p>
-        Location: {place.location.formatted}
-      </p>
-      <p>Date: {place.date.toLocaleDateString()}</p>
-      <p>Description: {place.description}</p>
-      <img
-        src={imageUrl}
-        alt="thumbnail"
-      ></img>
+      <ImageGallery items={images}></ImageGallery>
+      <div className="PlaceInfo">
+        <div>{place.location.formatted}</div>
+        <div>{place.date.toLocaleDateString('sv')}</div>  {/* TODO: Dynamic date */}
+      </div>
+      <p>{place.description}</p>
     </div>
   );
 };
