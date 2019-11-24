@@ -19,7 +19,7 @@ const MapBox = ({handleMarkerClick, markers}) => {
 
   const [viewport, setViewPort] = useState({
     width: size.width,
-    height: size.height-DIMENSIONS.NAVIGATION_BAR_HEIGHT,
+    height: size.height,
     ...INIT_VIEWPORT, 
   })
 
@@ -27,7 +27,7 @@ const MapBox = ({handleMarkerClick, markers}) => {
   useEffect(() => {
     setViewPort({
       width: size.width,
-      height: size.height-DIMENSIONS.NAVIGATION_BAR_HEIGHT,
+      height: size.height,
       ...INIT_VIEWPORT,    
     });
   }, [size]);

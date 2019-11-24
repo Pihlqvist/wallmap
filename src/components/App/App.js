@@ -22,7 +22,6 @@ const App = () => {
     <ProvideAuth>
       <div className="App">
         <Navigation />
-        <hr />
 
         <Route exact path={ROUTES.LANDING} component={Landing} />
         <Route exact path={ROUTES.ABOUT} component={About} />
