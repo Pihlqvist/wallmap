@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import * as opencage from 'opencage-api-client';
 import { useFirebase } from "../Firebase";
 import { useAuth } from "../Session/UserAuth";
 
@@ -9,31 +10,78 @@ const AddPlace = ({hide}) => {
   const [location, setLocation] = useState("");
   const [date, setDate] = useState("");
   const [description, setDescription] = useState("");
-  const [image, setImage] = useState("");
+  const [images, setImages] = useState(null); // FileList
+  const [suggestions, setSuggestions] = useState([]);
 
   const auth = useAuth();
   const firebase = useFirebase();
+  const debouncedSearchTerm = useDebounce(location, 500);
 
-  const randomLocation = () => (
-    {
-      lat: (Math.random()*180-90),
-      lng: (Math.random()*360-180),
-    }
-  );
+  // Set suggestions when debounce returns a value
+  useEffect(() => {
+    if (debouncedSearchTerm) {
+      // Fire off our API call
+      searchSuggestion(debouncedSearchTerm).then(results => {
+        setSuggestions(results);
+      });
+    } else {
+      setSuggestions([]);
+    }    
+  }, [debouncedSearchTerm])
 
-  const handleSubmit = evt => {
-    evt.preventDefault();
-    let loc = randomLocation();
-    // Add the place to firebase
-    const refKey = firebase.place(auth.user.uid).push({
-      name,
-      location: loc,
-      date: Date(date),
-      description,
-      image: "",
+  // Calls API with query and returns results
+  const searchSuggestion = (query) => {
+    return opencage
+    .geocode({key: process.env.REACT_APP_OCD_API_KEY, q: query})
+    .then(response => response.results)
+    .then(results => {
+      if(results) {
+        return results;
+      }
+      else {
+        console.log("no results");
+        return [];
+      }
+    })
+    .catch(error =>{
+      console.error(error);
+      return [];
     });
-    hide();
+  }
+
+  const handleSubmit = (evt) => {
+    evt.preventDefault();
+
+    // If we have the coordinates, create the place
+    if (suggestions) {
+      const refKey = firebase.place(auth.user.uid).push(
+        {
+          name,
+          location: suggestions[0],
+          date: Date(date),
+          description,
+          image: "",
+        }
+      );
+
+      // Upload images to the place if we have any
+      if (images) {
+        Array.from(images).forEach(img => {
+          firebase.images(auth.user.uid, refKey.path.pieces_[3]).child(img.name).put(img);
+        })
+      }
+
+      // Hide the AddPlace component
+      hide();
+    }
+    else {  // We din't get a good result from API
+      alert("Plz specify another location");
+    }
   };
+
+  // Can't submit a place if these properties are not met
+  const isInvalid = name === "" ||
+    location === "";
 
   return (
     <form className="AddPlace" onSubmit={handleSubmit}>
@@ -44,10 +92,14 @@ const AddPlace = ({hide}) => {
 				/>
       </Row>
       <Row label="Location:">
-				<input 
-					value={location} 
-					onChange={ evt => setLocation(evt.target.value)} 
-				/>
+        <input 
+          value={location} 
+          list="datalist"
+          onChange={ evt => setLocation(evt.target.value)} 
+        />
+        <datalist id="datalist">
+          {suggestions.map((value, idx) => <option key={idx} value={value.formatted} onClick={() => console.log("lciK")}/>)}
+        </datalist>
       </Row>
       <Row label="Date:">
 				<input 
@@ -64,9 +116,10 @@ const AddPlace = ({hide}) => {
       </Row>
       <Row label="Image (Images)">
 				<input 
-					value={image} 
-					type="file" 
-					onChange={evt => setImage(evt.target.value)} 
+          type="file"
+          multiple
+          accept="image/png, image/jpeg"
+					onChange={evt => setImages(evt.target.files)} 
 				/>
       </Row>
       <Row>
@@ -83,4 +136,27 @@ const Row = props => (
   </div>
 );
 
+/**
+ * Debounce Hook, returns value after a delay
+ * @param {string} value 
+ * @param {number} delay 
+ */
+function useDebounce(value, delay) {
+  // State and setters for debounced value
+  const [debouncedValue, setDebouncedValue] = useState(value);
+
+  useEffect(() => {
+    // Set debouncedValue to value (passed in) after the specified delay
+    const handler = setTimeout(() => {
+      setDebouncedValue(value);
+    }, delay);
+
+    return () => clearTimeout(handler);
+  },[value]);
+
+  return debouncedValue;
+}
+
 export default AddPlace;
+
+export { useDebounce }

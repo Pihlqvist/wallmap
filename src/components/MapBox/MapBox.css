@@ -7,15 +7,22 @@
   position: absolute;
   background: #fff;
 
-  background-color: blue;
-  width: 1.5rem;
-  height: 1.5rem;
+  background-color: #E7717D;
+  width: 1.6rem;
+  height: 1.6rem;
   display: block;
-  left: -0.5rem;
-  top: -0.5rem;
+  left: -0.8rem;
+  top: -1.8rem;
   border-radius: 1.5rem 1.5rem 0;
   transform: rotate(45deg);
-  border: 1px solid #FFFFFF;
+}
+
+.CustomMarker:hover {
+  box-shadow: 0 0 15px rgba(33,33,33,.2); 
+  width: 2rem;
+  height: 2rem;
+  left: -1rem;
+  top: -2.2rem;
 }
 
 .CustomMarkerText {

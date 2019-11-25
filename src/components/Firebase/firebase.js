@@ -1,6 +1,7 @@
 import app from "firebase/app";
 import "firebase/auth";
 import "firebase/database";
+import "firebase/storage";
 
 const config = {
   apiKey: process.env.REACT_APP_API_KEY,
@@ -21,6 +22,7 @@ class Firebase {
 
     this.auth = app.auth();
     this.db = app.database();
+    this.storage = app.storage();
   }
 
 
@@ -87,6 +89,10 @@ class Firebase {
    * @param {string} pid place id
    */   
   placeref = (uid, pid) => this.db.ref(`users/${uid}/place/${pid}`);
+
+  /*** STORAGE ***/
+  
+  images = (uid, ref) => this.storage.ref(`images/${uid}/${ref}`);
 }
 
 export default Firebase;

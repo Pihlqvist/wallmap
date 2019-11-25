@@ -6,6 +6,10 @@ import {Place} from "../Place/Place";
 import ModalWrapper from "../Modal/Modal";
 import { useAuth } from "../Session/UserAuth";
 import PlaceTable from "../Place/PlaceTable";
+import { ProfileBtn } from "../Profile/Profile";
+
+import Fab from '@material-ui/core/Fab';
+import Icon from '@material-ui/core/Icon';
 
 import "./Places.css";
 
@@ -28,7 +32,7 @@ const Places = () => {
     if (places) {
       setMarkers(
         places.map(place => {
-          return { id: place.id, location: place.location };
+          return { id: place.id, location: place.location.geometry };
         })
       );
     }
@@ -62,22 +66,16 @@ const Places = () => {
 
   return (
     <div className="Places">
-      <button 
-        onClick={() => setModal({showing: true, comp: <AddPlace hide={hide}/>})}
-      >
-        Add
-      </button>
-      <button
-        disabled={!places}
-        onClick={() => setModal(
+      <MapButtons 
+        onClickAdd={() => setModal({showing: true, comp: <AddPlace hide={hide}/>})}
+        onClickList={() => setModal(
           {
             showing: true, 
             comp: <PlaceTable places={places} selectPlace={selectPlace} />
           }
         )}
-      >
-        List
-      </button>
+      />
+      <ProfileBtn />
       <MapBox 
         handleMarkerClick={handleMarkerClick} 
         markers={markers} 
@@ -90,6 +88,20 @@ const Places = () => {
     </div>
   );
 };
+
+// Button panel to interact with the map
+const MapButtons = ({onClickAdd, onClickList}) => {
+  return (
+    <div className="MapButtons">
+      <Fab className="AddBtn MapBtn" onClick={onClickAdd}>
+        <Icon>add</Icon>
+      </Fab>
+      <Fab className="ListBtn MapBtn" onClick={onClickList}>
+        <Icon>list</Icon>
+      </Fab>
+    </div>
+  );
+}
 
 /**
  * Place hook, gives the users places in a format that is
