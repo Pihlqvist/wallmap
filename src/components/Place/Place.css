@@ -2,11 +2,22 @@
 
 .PlaceName {
   color:#E7717D;
+  font-size: 2rem;
 }
 
 .PlaceInfo {
   display: flex;
   justify-content: space-between;
+  font-size: 1.2rem;
+}
+
+.PlaceDescription {
+  font-size: 1.2rem;
+}
+.PlaceTitle {
+  color: #859393;
+  font-size: 1.5rem;
+  display: block;
 }
 
 .image-gallery-fullscreen-button::before,

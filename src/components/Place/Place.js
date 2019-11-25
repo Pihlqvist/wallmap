@@ -49,10 +49,19 @@ const Place = ({ place }) => {
       <h2 className="PlaceName">{place.name}</h2>
       <ImageGallery items={images}></ImageGallery>
       <div className="PlaceInfo">
-        <div>{place.location.formatted}</div>
-        <div>{place.date.toLocaleDateString('sv')}</div>  {/* TODO: Dynamic date */}
+        <div className="PlaceLocation">
+          <span className="PlaceTitle">Location: </span>
+          {place.location.formatted}
+        </div>
+        <div className="PlaceDate">
+          <span className="PlaceTitle">Date: </span>
+          {place.date.toLocaleDateString('sv')}
+        </div>  {/* TODO: Dynamic date */}
       </div>
-      <p>{place.description}</p>
+      <p className="PlaceDescription">
+        <span className="PlaceTitle">Description: </span>
+        {place.description}
+        </p>
     </div>
   );
 };
