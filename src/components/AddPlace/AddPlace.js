@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
-import * as opencage from 'opencage-api-client';
+import * as opencage from "opencage-api-client";
 import { useFirebase } from "../Firebase";
 import { useAuth } from "../Session/UserAuth";
 
 import "./AddPlace.css";
 
-const AddPlace = ({hide}) => {
+const AddPlace = ({ hide, preLocation }) => {
   const [name, setName] = useState("");
   const [location, setLocation] = useState("");
   const [date, setDate] = useState("");
@@ -26,104 +26,123 @@ const AddPlace = ({hide}) => {
       });
     } else {
       setSuggestions([]);
-    }    
-  }, [debouncedSearchTerm])
+    }
+  }, [debouncedSearchTerm]);
 
   // Calls API with query and returns results
-  const searchSuggestion = (query) => {
+  const searchSuggestion = query => {
     return opencage
-    .geocode({key: process.env.REACT_APP_OCD_API_KEY, q: query})
-    .then(response => response.results)
-    .then(results => {
-      if(results) {
-        return results;
-      }
-      else {
-        console.log("no results");
+      .geocode({ key: process.env.REACT_APP_OCD_API_KEY, q: query })
+      .then(response => response.results)
+      .then(results => {
+        if (results) {
+          return results;
+        } else {
+          console.log("no results");
+          return [];
+        }
+      })
+      .catch(error => {
+        console.error(error);
         return [];
-      }
-    })
-    .catch(error =>{
-      console.error(error);
-      return [];
-    });
-  }
+      });
+  };
 
-  const handleSubmit = (evt) => {
+  const handleSubmit = evt => {
     evt.preventDefault();
 
     // If we have the coordinates, create the place
     if (suggestions) {
-      const refKey = firebase.place(auth.user.uid).push(
-        {
-          name,
-          location: suggestions[0],
-          date: Date(date),
-          description,
-          image: "",
-        }
-      );
+      const refKey = firebase.place(auth.user.uid).push({
+        name,
+        location: suggestions[0],
+        date: Date(date),
+        description,
+        image: ""
+      });
 
       // Upload images to the place if we have any
       if (images) {
         Array.from(images).forEach(img => {
-          firebase.images(auth.user.uid, refKey.path.pieces_[3]).child(img.name).put(img);
-        })
+          firebase
+            .images(auth.user.uid, refKey.path.pieces_[3])
+            .child(img.name)
+            .put(img);
+        });
       }
 
       // Hide the AddPlace component
       hide();
-    }
-    else {  // We din't get a good result from API
+    } else {
+      // We din't get a good result from API
       alert("Plz specify another location");
     }
   };
 
+  // Geocode the coordinates from MapBox into formatted location
+  useEffect(() => {
+    if (preLocation) {
+      const query = `${preLocation[1]},${preLocation[0]}`;
+      opencage
+        .geocode({ q: query, key: process.env.REACT_APP_OCD_API_KEY })
+        .then(data => {
+          if (data.status.code == 200 && data.results.length > 0) {
+            setLocation(data.results[0].formatted);
+          }
+        })
+        .catch(error => {
+          console.log("error", error.message);
+        });
+    }
+  }, []);
+
   // Can't submit a place if these properties are not met
-  const isInvalid = name === "" ||
-    location === "";
+  const isInvalid = name === "" || location === "";
 
   return (
     <form className="AddPlace" onSubmit={handleSubmit}>
       <Row label="Name:">
-				<input 
-					value={name} 
-					onChange={evt => setName(evt.target.value)}
-				/>
+        <input value={name} onChange={evt => setName(evt.target.value)} />
       </Row>
       <Row label="Location:">
-        <input 
-          value={location} 
+        <input
+          value={location}
           list="datalist"
-          onChange={ evt => setLocation(evt.target.value)} 
+          onChange={evt => setLocation(evt.target.value)}
         />
         <datalist id="datalist">
-          {suggestions.map((value, idx) => <option key={idx} value={value.formatted} onClick={() => console.log("lciK")}/>)}
+          {suggestions.map((value, idx) => (
+            <option
+              key={idx}
+              value={value.formatted}
+              onClick={() => console.log("lciK")}
+            />
+          ))}
         </datalist>
       </Row>
       <Row label="Date:">
-				<input 
-					value={date} 
-					type="date" 
-					onChange={evt => setDate(evt.target.value)} 
-				/>
+        <input
+          value={date}
+          type="date"
+          onChange={evt => setDate(evt.target.value)}
+        />
       </Row>
       <Row label="Description">
-				<input 
-					value={description} 
-					onChange={evt => setDescription(evt.target.value)} 
-				/>
+        <input
+          value={description}
+          onChange={evt => setDescription(evt.target.value)}
+        />
       </Row>
       <Row label="Image (Images)">
-				<input 
+        <input
           type="file"
           multiple
           accept="image/png, image/jpeg"
-					onChange={evt => setImages(evt.target.files)} 
-				/>
+          onChange={evt => setImages(evt.target.files)}
+        />
       </Row>
       <Row>
-				<input type="submit" />
+        <input type="submit" />
       </Row>
     </form>
   );
@@ -138,8 +157,8 @@ const Row = props => (
 
 /**
  * Debounce Hook, returns value after a delay
- * @param {string} value 
- * @param {number} delay 
+ * @param {string} value
+ * @param {number} delay
  */
 function useDebounce(value, delay) {
   // State and setters for debounced value
@@ -152,11 +171,11 @@ function useDebounce(value, delay) {
     }, delay);
 
     return () => clearTimeout(handler);
-  },[value]);
+  }, [value]);
 
   return debouncedValue;
 }
 
 export default AddPlace;
 
-export { useDebounce }
+export { useDebounce };
