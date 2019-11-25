@@ -46,7 +46,7 @@ const Place = ({ place }) => {
 
   return (
     <div className="Place">
-      <h2>{place.name}</h2>
+      <h2 className="PlaceName">{place.name}</h2>
       <ImageGallery items={images}></ImageGallery>
       <div className="PlaceInfo">
         <div>{place.location.formatted}</div>
