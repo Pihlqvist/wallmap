@@ -1,6 +1,5 @@
 .MapBox {
   position: fixed;
-  z-index: -1;
 }
 
 .CustomMarker {

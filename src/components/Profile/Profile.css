@@ -1,6 +1,7 @@
 .MapBtnAreaRight {
   margin: 1.6rem;
   direction: rtl;
+  z-index: 100;
 }
 
 .Popper {
