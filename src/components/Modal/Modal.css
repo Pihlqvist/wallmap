@@ -23,7 +23,7 @@
 
 .modal {
   z-index: 100;
-  background: white;
+  background: #e4ddd3;
   position: relative;
   margin: 1.75rem auto;
   border-radius: 3px;
