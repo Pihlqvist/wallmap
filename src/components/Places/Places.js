@@ -64,6 +64,11 @@ const Places = () => {
     setModal({showing: false, comp: modal.comp});
   }
 
+  const handleMapClick = (evt) => {
+    evt.preventDefault(); // Prevent context menu
+    setModal({showing: true, comp: <AddPlace hide={hide} preLocation={evt.lngLat}/>})
+  }
+
   return (
     <div className="Places">
       <MapButtons 
@@ -77,6 +82,7 @@ const Places = () => {
       />
       <ProfileBtn />
       <MapBox 
+        handleMapClick={handleMapClick}
         handleMarkerClick={handleMarkerClick} 
         markers={markers} 
       />

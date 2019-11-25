@@ -13,7 +13,7 @@ const INIT_VIEWPORT = {
   maxZoom: 5,  
 }
 
-const MapBox = ({handleMarkerClick, markers}) => {
+const MapBox = ({handleMarkerClick, markers, handleMapClick}) => {
 
   const size = useWindowSize();
 
@@ -39,6 +39,7 @@ const MapBox = ({handleMarkerClick, markers}) => {
         mapboxApiAccessToken={process.env.REACT_APP_MAPBOX_ACCESS_TOKEN}
         onViewportChange={viewport => setViewPort({...viewport })}
         mapStyle="mapbox://styles/eltom/ck3a7vlk607ez1cqv67nb9tjn"
+        onContextMenu={handleMapClick}
       >
       {markers && markers.map(mark => { 
           return <Marker 
