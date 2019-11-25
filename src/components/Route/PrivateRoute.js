@@ -11,8 +11,7 @@ import * as ROUTES from "../../data/constants/routes.js";
 const PrivateRoute = ({ component: Component, ...rest }) => {
   const auth = useAuth();
 
-  console.log("private: ", auth);
-  return (
+  return auth.done ? (
     // Show the component only when the user is logged in
     // Otherwise, redirect the user to /signin page
     <Route
@@ -21,7 +20,7 @@ const PrivateRoute = ({ component: Component, ...rest }) => {
         auth.user ? <Component {...props} /> : <Redirect to={ROUTES.LOGIN} />
       }
     />
-  );
+  ) : null;
 };
 
 export { PrivateRoute };

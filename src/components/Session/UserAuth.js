@@ -30,7 +30,8 @@ export const useAuth = () => {
  * @return {Object} auth object
  */
 const useProvideAuth = () => {
-  const [user, setUser] = useState(JSON.parse(localStorage.getItem('authUser')));
+  const [user, setUser] = useState(null);   // Stores the authUser
+  const [done, setDone] = useState(false);  // True when we have user handler up
   const firebase = useFirebase();
 
   /**
@@ -43,9 +44,11 @@ const useProvideAuth = () => {
     const unsubscribe = firebase.auth.onAuthStateChanged(authUser => {
       if (authUser) {
         setUser(authUser);
+        setDone(true);
       }
       else {
         setUser(null);
+        setDone(true);
       }
     });
 
@@ -53,8 +56,18 @@ const useProvideAuth = () => {
     return () => unsubscribe();
   }, [firebase.auth]);
 
+
+  // If user was logged in from previouse session, set that as authUser
+  useEffect(() => {
+    const authUser = JSON.parse(localStorage.getItem('authUser'));
+    if (authUser) {
+      setUser(authUser);
+      setDone(true);
+    }
+  }, []);
+
   // Return the user object
   return (
-    {user: user}
+    {user, done}
   );
 }
