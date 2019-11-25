@@ -13,7 +13,7 @@ const ForgotPassword = () => {
 
 const PasswordForgetLink = () => (
   <p>
-    <Link to={ROUTES.FORGOT_PASSWORD}>Forgot Password?</Link>
+    <Link to={ROUTES.FORGOT_PASSWORD} className="AllwaysBlueLinks">Forgot Password?</Link>
   </p>
 );
 
