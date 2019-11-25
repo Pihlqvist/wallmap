@@ -7,7 +7,7 @@ import * as ROUTES from "../../data/constants/routes";
 
 const SignUp = () => {
   return (
-    <div>
+    <div className="FormContainer1">
       <h1>SignUp</h1>
       <SignUpForm />
     </div>
@@ -68,34 +68,39 @@ const SignUpForm = () => {
   return (
     <form onSubmit={onSubmit}>
       <input
+        className="InputField1"
         name="username"
         value={username}
+        required
         onChange={evt => setUsername(evt.target.value)}
         type="text"
-        placeholder="Full Name"
+        placeholder="Username *"
       />
       <input
+        className="InputField1"
         name="email"
         value={email}
         onChange={evt => setEmail(evt.target.value)}
         type="text"
-        placeholder="Email Address"
+        placeholder="Email Address *"
       />
       <input
+        className="InputField1"
         name="passwordOne"
         value={passwordOne}
         onChange={evt => setPasswordOne(evt.target.value)}
         type="password"
-        placeholder="Password"
+        placeholder="Password *"
       />
       <input
+        className="InputField1"
         name="passwordTwo"
         value={passwordTwo}
         onChange={evt => setPasswordTwo(evt.target.value)}
         type="password"
-        placeholder="Confirm Password"
+        placeholder="Confirm Password *"
       />
-      <button disabled={isInvalid} type="submit">
+      <button disabled={isInvalid} type="submit" className="Btn1">
         Sign Up
       </button>
       {error && <p>{error.message}</p>}
@@ -106,7 +111,7 @@ const SignUpForm = () => {
 const SignUpLink = () => {
   return (
     <p>
-      Don't have an account? <Link to={ROUTES.SIGN_UP}>Sign Up</Link>
+      Don't have an account? <Link to={ROUTES.SIGN_UP} className="AllwaysBlueLinks">Sign Up</Link>
     </p>
   );
 };

@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Link} from 'react-router-dom';
+import {Link, useLocation} from 'react-router-dom';
 import * as ROUTES from '../../data/constants/routes.js';
 import { useAuth } from "../Session/UserAuth.js";
 import { LogOutButton } from "../Logout/Logout.js";
@@ -8,7 +8,11 @@ import './Navigation.css';
 
 const Navigation = () => {
   const auth = useAuth();
-	return (
+  const location = useLocation();
+
+  const shouldDisplay = location.pathname !== ROUTES.PLACES;
+
+	return shouldDisplay ? (
     <div className="Navigation">
       {auth.user ? (
         <LeftNavAuth />
@@ -21,7 +25,7 @@ const Navigation = () => {
         <RightNavNonAuth />
       )}
     </div>
-  )
+  ) : null;
 }
 
 const LeftNavNonAuth = () => {

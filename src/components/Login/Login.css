@@ -1,0 +1,7 @@
+
+.LinkRow {
+  width: 100%;
+  display: inline-flex;
+  font-size: small;
+  justify-content: space-between;
+}

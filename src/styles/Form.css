@@ -1,0 +1,28 @@
+
+.FormContainer1 {
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  box-sizing: border-box;
+  max-width: 320px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.FormContainer1 form {
+  text-align: center;
+}
+
+.FormContainer1 form * {
+  margin-top: 1rem;
+  margin-bottom: .1rem;
+}
+
+.FormContainer1 form input {
+  width: 100%;
+}
+
+.FormRow1 {
+  width: 100%;
+}

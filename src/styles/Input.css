@@ -1,0 +1,25 @@
+
+.InputField1 {
+	box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	border: 1px solid #C2C2C2;
+	box-shadow: 1px 1px 4px #EBEBEB;
+	-moz-box-shadow: 1px 1px 4px #EBEBEB;
+	-webkit-box-shadow: 1px 1px 4px #EBEBEB;
+	border-radius: 3px;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	padding: 7px;
+  outline: none;
+  font-weight: 600;
+  font-size: medium;
+}
+
+.InputField1:focus {
+  border: 1px solid black;
+}
+
+.InputField1:hover {
+  border: 1px solid rgb(44, 44, 44);
+}
