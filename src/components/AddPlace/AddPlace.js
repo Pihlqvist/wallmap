@@ -10,7 +10,7 @@ const AddPlace = ({hide}) => {
   const [location, setLocation] = useState("");
   const [date, setDate] = useState("");
   const [description, setDescription] = useState("");
-  const [image, setImage] = useState(null);
+  const [images, setImages] = useState(null); // FileList
   const [suggestions, setSuggestions] = useState([]);
 
   const auth = useAuth();
@@ -51,6 +51,8 @@ const AddPlace = ({hide}) => {
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
+
+    // If we have the coordinates, create the place
     if (suggestions) {
       const refKey = firebase.place(auth.user.uid).push(
         {
@@ -61,12 +63,15 @@ const AddPlace = ({hide}) => {
           image: "",
         }
       );
-      if (image) {
-        const ref = firebase.images(auth.user.uid, refKey.path.pieces_[3]).child(image.name);
-        ref.put(image).then((snapshot) => {
-          console.log("uploaded image");
-        });
+
+      // Upload images to the place if we have any
+      if (images) {
+        Array.from(images).forEach(img => {
+          firebase.images(auth.user.uid, refKey.path.pieces_[3]).child(img.name).put(img);
+        })
       }
+
+      // Hide the AddPlace component
       hide();
     }
     else {  // We din't get a good result from API
@@ -111,8 +116,10 @@ const AddPlace = ({hide}) => {
       </Row>
       <Row label="Image (Images)">
 				<input 
-					type="file" 
-					onChange={evt => setImage(evt.target.files[0])} 
+          type="file"
+          multiple
+          accept="image/png, image/jpeg"
+					onChange={evt => setImages(evt.target.files)} 
 				/>
       </Row>
       <Row>
