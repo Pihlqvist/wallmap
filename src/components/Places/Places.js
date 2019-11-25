@@ -114,6 +114,7 @@ const usePlaces = () => {
     firebasePlaces.forEach((place, idx) => {
       place.id = keys[idx];             // Add key as object id
       place.date = new Date(place.date);    // Convert date to object
+      place.imgs = getImages(place.id); // Add array of promises
     });
     return firebasePlaces;
   }
@@ -128,6 +129,22 @@ const usePlaces = () => {
       setPlaces([]);
     }
   }, [auth, firebase]);
+
+  /**
+   * Get all the image urls corresponding to a place 
+   * @param {string} pid place id 
+   * @returns {Promise} Array of promises of urls
+   */
+  const getImages = (pid) => {
+    return new Promise((resolve) => {
+      firebase.images(auth.user.uid, pid).listAll()
+      .then(res => {
+        resolve(res.items.map(itemRef => {
+          return itemRef.getDownloadURL();
+        }));
+      })
+    })
+  }
 
   return places;
 }
