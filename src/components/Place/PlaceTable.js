@@ -1,7 +1,9 @@
 import React, { useState } from "react";
+import { usePlaces } from "../Places/Places";
+import { useFirebase } from "../Firebase";
+import { useAuth } from "../Session/UserAuth";
 
 import "./PlaceTable.css";
-import { usePlaces } from "../Places/Places";
 
 const PlaceTable = ({ selectPlace }) => {
 
@@ -25,8 +27,8 @@ const PlaceTable = ({ selectPlace }) => {
           >
             Date  <SortDisplay show={sortMethod.col === "date"} up={sortMethod.reverse}/>
           </th>
-          <th className="RowBtn">Rmv</th>
-          <th className="RowBtn">Edt</th>
+          <th className="RowBtn">Edit</th>
+          <th className="RowBtn">Remove</th>
         </tr>
       </thead>
       <tbody>
@@ -39,8 +41,27 @@ const PlaceTable = ({ selectPlace }) => {
 };
 
 const PlaceRow = ({ place, selectPlace }) => {
+  const firebase = useFirebase();
+  const auth = useAuth();
+
+  const handelRowClick = (evt) => {
+    // If we din't click an icon go to place
+    if (evt.target.nodeName !== "I") {
+      selectPlace(place.id);
+    } 
+  }
+
+  // Remove the place 
+  const removePlace = () => {
+    let respones = window.confirm(`Want to remove ${place.name}?`);
+    if (respones) {
+      const mes = firebase.placeref(auth.user.uid, place.id).remove();
+      console.log(mes);
+    }
+  }
+
   return (
-    <tr onClick={() => selectPlace(place.id)}>
+    <tr onClick={(evt) => handelRowClick(evt)}>
       <td>
         <img alt="p" />
       </td>
@@ -51,7 +72,7 @@ const PlaceRow = ({ place, selectPlace }) => {
         <i className="material-icons">edit</i>
       </td>
       <td>
-        <i className="material-icons">remove_circle_outline</i>
+        <i className="material-icons" onClick={() => removePlace()}>remove_circle_outline</i>
       </td>
     </tr>
   );

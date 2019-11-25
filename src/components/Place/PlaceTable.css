@@ -45,3 +45,7 @@
 .RowBtn {
   width: 10%;
 }
+
+.material-icons:hover {
+  cursor: pointer;
+}
