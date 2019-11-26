@@ -38,6 +38,10 @@ const SignUpForm = () => {
     firebase
       .doCreateUserWithEmailAndPassword(email, passwordOne)
       .then(authUser => {
+
+        // Add additional infromation the the users profile
+        authUser.user.updateProfile({displayName: username});
+
         // Create a user in your Firebase realtime database
         return firebase.user(authUser.user.uid).set({
           username,

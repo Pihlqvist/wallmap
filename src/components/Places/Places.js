@@ -140,7 +140,9 @@ const usePlaces = () => {
   useEffect(() => {
     if (auth.user) {
       firebase.place(auth.user.uid).on('value', (snapshot) => {
-        setPlaces(convert(snapshot));
+        if (snapshot.val()) {
+          setPlaces(convert(snapshot));
+        }
       });
     } else {
       setPlaces([]);
