@@ -1,3 +1,31 @@
-.rowContent {
+/* .rowContent {
   display: block;
+} */
+
+.AddPlaceTitle {
+  color:#E7717D;
+  font-size: 2rem;
 }
+
+.rowTitle {
+  color: #859393;
+  font-size: 1.5rem;
+}
+
+.rowContent > input {
+  text-align: center;
+  font-size: 1.2rem;
+}
+
+/* Date picker style */
+[type="date"] {
+  background:#fff url(https://cdn1.iconfinder.com/data/icons/cc_mono_icon_set/blacks/16x16/calendar_2.png)  97% 50% no-repeat ;
+  color:#859393;
+}
+[type="date"]::-webkit-inner-spin-button {
+  visibility: hidden;
+}
+[type="date"]::-webkit-calendar-picker-indicator {
+  opacity: 0;
+}
+

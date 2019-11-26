@@ -1,5 +1,5 @@
 
-.Btn1 {
+.Btn1, .BtnFile {
   color: #fff;
   background-color: #E7717D;
   border: 0;
@@ -22,13 +22,19 @@
   transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,border 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
 }
 
-.Btn1:hover:enabled {
+.Btn1:hover:enabled, .BtnFile:hover:enabled {
   box-shadow: 0px 2px 4px -1px rgba(0,0,0,0.2), 0px 4px 5px 0px rgba(0,0,0,0.14), 0px 1px 10px 0px rgba(0,0,0,0.12);
   background-color: rgb(143, 57, 65);
 }
 
 .Btn1:disabled,
-.Btn1[disabled] {
+.Btn1[disabled], 
+.BtnFile:disabled, 
+.BtnFile[disabled] {
   color: #fff;
   background-color: rgb(182, 105, 112);
+}
+
+.BtnFile {
+  background-color: rgb(9, 143, 7);
 }

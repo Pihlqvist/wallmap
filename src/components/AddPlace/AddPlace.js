@@ -5,7 +5,14 @@ import { useAuth } from "../Session/UserAuth";
 
 import "./AddPlace.css";
 
-const AddPlace = ({ hide, preLocation }) => {
+const AddPlace = () => (
+  <div className="FormContainer1">
+    <h1 className="AddPlaceTitle">Add a new place</h1>
+    <AddPlaceForm />
+  </div>
+)
+
+const AddPlaceForm = ({ hide, preLocation }) => {
   const [name, setName] = useState("");
   const [location, setLocation] = useState("");
   const [date, setDate] = useState("");
@@ -102,13 +109,18 @@ const AddPlace = ({ hide, preLocation }) => {
   return (
     <form className="AddPlace" onSubmit={handleSubmit}>
       <Row label="Name:">
-        <input value={name} onChange={evt => setName(evt.target.value)} />
+        <input 
+          value={name} 
+          onChange={evt => setName(evt.target.value)} 
+          className="InputField1"
+        />
       </Row>
       <Row label="Location:">
         <input
           value={location}
           list="datalist"
           onChange={evt => setLocation(evt.target.value)}
+          className="InputField1"
         />
         <datalist id="datalist">
           {suggestions.map((value, idx) => (
@@ -125,12 +137,14 @@ const AddPlace = ({ hide, preLocation }) => {
           value={date}
           type="date"
           onChange={evt => setDate(evt.target.value)}
+          className="InputField1"
         />
       </Row>
       <Row label="Description">
         <input
           value={description}
           onChange={evt => setDescription(evt.target.value)}
+          className="InputField1"
         />
       </Row>
       <Row label="Image (Images)">
@@ -139,10 +153,11 @@ const AddPlace = ({ hide, preLocation }) => {
           multiple
           accept="image/png, image/jpeg"
           onChange={evt => setImages(evt.target.files)}
+          className="BtnFile"
         />
       </Row>
       <Row>
-        <input type="submit" />
+        <input type="submit" className="Btn1"/>
       </Row>
     </form>
   );
