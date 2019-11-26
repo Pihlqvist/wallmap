@@ -35,6 +35,9 @@
   background-color: rgb(182, 105, 112);
 }
 
-.BtnFile {
+.BtnFile, .BtnFile[disabled] {
   background-color: rgb(9, 143, 7);
+}
+.BtnFile:hover:enabled {
+  background-color: rgb(4, 89, 2);
 }
