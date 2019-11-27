@@ -19,7 +19,7 @@ const ProfileMenu = () => {
 
 	return (
 		<div className="Popper">
-			<p>{auth.user.email}</p>
+			<p>{auth.user.displayName}</p>
 			<LogOutButton />
 		</div>
 	)
