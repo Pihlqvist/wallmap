@@ -113,6 +113,7 @@ const AddPlaceForm = ({ hide, preLocation }) => {
           value={name} 
           onChange={evt => setName(evt.target.value)} 
           className="InputField1"
+          placeholder="Name of the place"
         />
       </Row>
       <Row label="Location:">
@@ -121,6 +122,7 @@ const AddPlaceForm = ({ hide, preLocation }) => {
           list="datalist"
           onChange={evt => setLocation(evt.target.value)}
           className="InputField1"
+          placeholder="City, country or address"
         />
         <datalist id="datalist">
           {suggestions.map((value, idx) => (
@@ -141,10 +143,13 @@ const AddPlaceForm = ({ hide, preLocation }) => {
         />
       </Row>
       <Row label="Description">
-        <input
+        <textarea
+          name="description"
+          rows="10"
           value={description}
           onChange={evt => setDescription(evt.target.value)}
           className="InputField1"
+          placeholder="Here you can describe the place or your experience of the place you visited"
         />
       </Row>
       <Row label="Image (Images)">
