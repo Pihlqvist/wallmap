@@ -3,7 +3,7 @@ import ReactDOM from "react-dom";
 
 import "./Modal.css";
 
-const ModalWrapper = ({ isShowing, hide, Wrapper }) =>
+const ModalWrapper = ({ isShowing, hide, Wrapper, bckgrnd }) =>
   isShowing
     ? ReactDOM.createPortal(
         <React.Fragment>
@@ -20,7 +20,7 @@ const ModalWrapper = ({ isShowing, hide, Wrapper }) =>
               }
             }}
           >
-            <div className="modal">
+            <div className={bckgrnd ? "modal" : "modalhidden"}>
               <div className="modal-header">
                 <button
                   type="button"

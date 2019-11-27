@@ -5,7 +5,7 @@ import { useFirebase } from "../Firebase";
 import {Place} from "../Place/Place";
 import ModalWrapper from "../Modal/Modal";
 import { useAuth } from "../Session/UserAuth";
-import PlaceTable from "../Place/PlaceTable";
+import MPlaceTable from "../Place/MPlaceTable";
 import { ProfileBtn } from "../Profile/Profile";
 
 import Fab from '@material-ui/core/Fab';
@@ -21,7 +21,9 @@ import "./Places.css";
  */
 const Places = () => {
   const [markers, setMarkers] = useState(null);
-  const [modal, setModal] = useState({showing: false, comp: null});
+  const [modal, setModal] = useState(
+    {showing: false, comp: null, bckgrnd: true}
+  );
   
   const firebase = useFirebase();   // TODO: Needed after places hook ?
   const auth = useAuth();           // TODO: Needed after places hook ?
@@ -43,12 +45,16 @@ const Places = () => {
   const handleMarkerClick = evt => {
     let targetId = evt.currentTarget.id;
     let aPlace = places.filter(place => place.id == targetId);
-    setModal({showing: true, comp: <Place place={aPlace[0]} />});
+    setModal({
+      showing: true, 
+      comp: <Place place={aPlace[0]} />,
+      bckgrnd: true,
+    });
   };
   
   // Toggle a model
 	const toggle = () => {
-    setModal({showing: !modal.showing, comp: modal.comp})
+    setModal({showing: !modal.showing, comp: modal.comp, bckgrnd: modal.bckgrnd})
   }
 
   const selectPlace = (id) => {
@@ -61,22 +67,27 @@ const Places = () => {
   }
   
   const hide = () => {
-    setModal({showing: false, comp: modal.comp});
+    setModal({showing: false, comp: modal.comp, bckgrnd: modal.bckgrnd});
   }
 
   const handleMapClick = (evt) => {
     evt.preventDefault(); // Prevent context menu
-    setModal({showing: true, comp: <AddPlace hide={hide} preLocation={evt.lngLat}/>})
+    setModal({
+      showing: true, 
+      comp: <AddPlace hide={hide} preLocation={evt.lngLat}/>,
+      bckgrnd: true,
+    })
   }
 
   return (
     <div className="Places">
       <MapButtons 
-        onClickAdd={() => setModal({showing: true, comp: <AddPlace hide={hide}/>})}
+        onClickAdd={() => setModal({showing: true, comp: <AddPlace hide={hide}/>,bckgrnd: true })}
         onClickList={() => setModal(
           {
             showing: true, 
-            comp: <PlaceTable places={places} selectPlace={selectPlace} />
+            comp: <MPlaceTable places={places} selectPlace={selectPlace} />,
+            bckgrnd: false,
           }
         )}
       />
@@ -90,6 +101,7 @@ const Places = () => {
         isShowing={modal.showing}
         hide={toggle}
         Wrapper={modal.comp}
+        bckgrnd={modal.bckgrnd}
       />
     </div>
   );

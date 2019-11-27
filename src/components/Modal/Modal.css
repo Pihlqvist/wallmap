@@ -31,6 +31,13 @@
   padding: 2rem;
 }
 
+.modalhidden {
+  z-index: 100;
+  position: relative;
+  margin: 1.75rem auto;
+  max-width: 1200px;
+}
+
 .modal-header {
   display: flex;
   justify-content: flex-end;
