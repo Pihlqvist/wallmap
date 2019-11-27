@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import Fab from '@material-ui/core/Fab';
 import Icon from '@material-ui/core/Icon';
-import { LogOutButton } from "../Logout/Logout";
-import { useAuth } from '../Session/UserAuth';
+import { useFirebase } from '../Firebase';
 
 import "./Profile.css";
 
@@ -15,12 +14,14 @@ const Profile = () => {
 }
 
 const ProfileMenu = () => {
-	const auth = useAuth();
+	const firebase = useFirebase();
 
 	return (
 		<div className="Popper">
-			<p>{auth.user.displayName}</p>
-			<LogOutButton />
+			<ul className="MenuList">
+				<li className="MenuListItem">Settings</li>
+				<li className="MenuListItem" onClick={firebase.doSignOut}>Logout</li>
+			</ul>
 		</div>
 	)
 }
