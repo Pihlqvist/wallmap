@@ -29,7 +29,7 @@ const App = () => {
         <AuthorizedRoute exact path={ROUTES.LOGIN} component={Login} />
         <PrivateRoute exact path={ROUTES.PROFILE} component={Profile} />
         <PrivateRoute exact path={ROUTES.PLACES} component={Places} />
-        <PrivateRoute exact path={ROUTES.FORGOT_PASSWORD} component={ForgotPassword} />
+        <AuthorizedRoute exact path={ROUTES.FORGOT_PASSWORD} component={ForgotPassword} />
 
       </div>
     </ProvideAuth>

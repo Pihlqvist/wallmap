@@ -1,14 +1,59 @@
-import React, {Component} from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import * as ROUTES from '../../data/constants/routes.js';
+import { useFirebase } from '../Firebase/index.js';
 
 const ForgotPassword = () => {
 	return (
-			<div className="ForgotPassword">
-				<h1>This is ForgotPassword Page</h1>
+			<div className="FormContainer1">
+				<h1>Forgot Password</h1>
+				<PasswordForgetForm />
 			</div>
 		)
+}
+
+const PasswordForgetForm = () => {
+	
+	const [email, setEmail] = useState("");
+	const [error, setError] = useState(null);
+
+	const firebase = useFirebase();
+
+  const onSubmit = (evt) => {
+		evt.preventDefault();
+
+    firebase
+      .doPasswordReset(email)
+      .then(() => {
+				setEmail("");
+				setError(null);
+      })
+      .catch(error => {
+        setError(error);
+      });
+  };
+
+	const isInvalid = email === '';
+
+	return (
+		<form onSubmit={onSubmit}>
+			<input
+				name="email"
+				value={email}
+				onChange={evt => setEmail(evt.target.value)}
+				type="text"
+				placeholder="Email Address"
+				className="InputField1"
+			/>
+			<button disabled={isInvalid} type="submit" className="Btn1">
+				Reset My Password
+			</button>
+
+			{error && <p>{error.message}</p>}
+		</form>
+	);
+
 }
 
 const PasswordForgetLink = () => (
