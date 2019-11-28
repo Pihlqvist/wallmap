@@ -1,0 +1,46 @@
+.Landing {
+  margin: 0 auto;
+}
+
+.LdBackgrImg {
+  height: 355.47px;;
+  width: 862.84px;
+  position: absolute;
+  background-image: url('../../assets/images/world.svg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  opacity: 0.08;
+  z-index: -1;
+  left: 88px;
+}
+
+
+.Tagline {
+  font-style: normal;
+  font-weight: bold;
+  font-size: 36px;
+  line-height: 42px;
+  padding-top: 77px;
+  margin: auto;
+  text-align: center;
+}
+
+.BtnSignUp {
+  width: 150px;
+  padding: 10px 20px;
+  margin: 40px auto;
+  text-align: center;
+  border: 1px solid #EEEEEE;
+}
+
+.BtnSignUp * {
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.BtnSignUp:hover {
+  background-color: #E7717D;
+  border: 3px solid #EEEEEE;
+}
+

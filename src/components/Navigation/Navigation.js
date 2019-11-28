@@ -32,11 +32,8 @@ const LeftNavNonAuth = () => {
   return (
     <div className="LeftNav">
       <ul>
-        <li>
-        <Link to={ROUTES.LANDING}>WallMap</Link>
-        </li>
-        <li>
-          <Link to={ROUTES.ABOUT}>About</Link>
+        <li className="Wallmap">
+        <Link to={ROUTES.LANDING} style={{ color: '#EEEEEE' }}>WallMap</Link>
         </li>
       </ul>
     </div>
@@ -48,13 +45,10 @@ const LeftNavAuth = () => {
     <div className="LeftNav">
       <ul>
         <li>
-        <Link to={ROUTES.LANDING}>WallMap</Link>
+        <Link to={ROUTES.LANDING} style={{ color: '#EEEEEE' }}>WallMap</Link>
         </li>
         <li>
-          <Link to={ROUTES.ABOUT}>About</Link>
-        </li>
-        <li>
-          <Link to={ROUTES.PLACES}>Places</Link>
+          <Link to={ROUTES.PLACES} style={{ color: '#EEEEEE' }}>Places</Link>
         </li>
       </ul>
     </div>
@@ -80,12 +74,14 @@ const RightNavNonAuth = () => {
   return (
     <div className="RightNav">
       <ul>
-        <li>
-          <Link to={ROUTES.LOGIN}>Login</Link>
+        <li className="Login">
+          <Link to={ROUTES.LOGIN} style={{ color: '#EEEEEE' }}>Login</Link>
         </li>
-        <li>
-          <Link to={ROUTES.SIGN_UP}>Sign Up</Link>
-        </li>
+        <span className="Rectangle">
+          <li className="SignUp">
+            <Link to={ROUTES.SIGN_UP} style={{ color: '#EEEEEE' }}>Sign Up</Link>
+          </li>
+        </span>
       </ul>
     </div>
   )

@@ -4,10 +4,50 @@
 }
 .LeftNav li, .RightNav li {
   display: inline;
-  margin-left: 5px;
   list-style-type: none;
+  text-decoration: none;
 }
 
 .LeftNav li a:link, .RightNav li a:link {
   text-decoration: none;
+}
+
+.Wallmap {
+  position: absolute;
+  width: 94px;
+  height: 28px;
+
+  font-style: normal;
+  font-weight: bold;
+  font-size: 24px;
+  line-height: 28px;
+}
+
+.Login, .SignUp {
+  /* position: absolute; */
+  width: 38px;
+  height: 15px;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 13px;
+  line-height: 15px;
+}
+
+.Login {
+  margin-left: 88px;
+  margin-right: 10px;
+}
+
+.SignUp {
+  /* position: absolute; */
+  border: 1px solid #EEEEEE;
+  padding: 7px 19px;
+  margin-right: 88px;
+}
+
+.SignUp:hover {
+  border: 1px solid #FFF;
+}
+.SignUp *:hover, .Login *:hover {
+  color: #FFF !important;
 }
