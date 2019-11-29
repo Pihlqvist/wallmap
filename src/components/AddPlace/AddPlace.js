@@ -5,10 +5,10 @@ import { useAuth } from "../Session/UserAuth";
 
 import "./AddPlace.css";
 
-const AddPlace = () => (
+const AddPlace = ({ hide, preLocation }) => (
   <div className="FormContainer1">
     <h1 className="AddPlaceTitle">Add a new place</h1>
-    <AddPlaceForm />
+    <AddPlaceForm hide={hide} preLocation={preLocation}/>
   </div>
 )
 
@@ -59,7 +59,7 @@ const AddPlaceForm = ({ hide, preLocation }) => {
     evt.preventDefault();
 
     // If we have the coordinates, create the place
-    if (suggestions) {
+    if (suggestions[0]) {
       const refKey = firebase.place(auth.user.uid).push({
         name,
         location: suggestions[0],
