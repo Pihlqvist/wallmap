@@ -1,16 +1,19 @@
-import React, {Component} from 'react';
-import {Link, useLocation} from 'react-router-dom';
-import * as ROUTES from '../../data/constants/routes.js';
+import React, { Component } from "react";
+import { Link, useLocation } from "react-router-dom";
+import * as ROUTES from "../../data/constants/routes.js";
 
-import './Landing.css';
+import "./Landing.css";
 
 const Landing = () => {
-	return (
+  return (
+    <div className="LandingContainer">
 			<div className="Landing">
-				<div className="LdBackgrImg"></div>
-				<h1 className="Tagline" style={{color:'#EEEEEE'}}>Visualize all your travels on WallMap</h1>
-				<div className="BtnSignUp"><Link to={ROUTES.SIGN_UP} style={{ color: '#EEEEEE' }}>Get Started Now</Link></div>
+				<h1 className="Tagline">Visualize all your travels on WallMap</h1>
+				<div className="BtnSignUp LinkBtn1">
+					<Link to={ROUTES.SIGN_UP}>Get Started Now</Link>
+				</div>
 			</div>
-		)
-}
+    </div>
+  );
+};
 export default Landing;
