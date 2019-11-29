@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import * as opencage from "opencage-api-client";
-import { useFirebase } from '../../util/Firebase';
+import { useFirebase } from "../../util/Firebase";
 import { useAuth } from "../../util/UserAuth";
 import { useDebounce } from "../../util/Debounce";
 
@@ -9,9 +9,9 @@ import "./AddPlace.css";
 const AddPlace = ({ hide, preLocation }) => (
   <div className="FormContainer1">
     <h1 className="AddPlaceTitle">Add a new place</h1>
-    <AddPlaceForm hide={hide} preLocation={preLocation}/>
+    <AddPlaceForm hide={hide} preLocation={preLocation} />
   </div>
-)
+);
 
 const AddPlaceForm = ({ hide, preLocation }) => {
   const [name, setName] = useState("");
@@ -37,6 +37,23 @@ const AddPlaceForm = ({ hide, preLocation }) => {
     }
   }, [debouncedSearchTerm]);
 
+  // Geocode the coordinates from MapBox into formatted location
+  useEffect(() => {
+    if (preLocation) {
+      const query = `${preLocation[1]},${preLocation[0]}`;
+      opencage
+        .geocode({ q: query, key: process.env.REACT_APP_OCD_API_KEY })
+        .then(data => {
+          if (data.status.code == 200 && data.results.length > 0) {
+            setLocation(data.results[0].formatted);
+          }
+        })
+        .catch(error => {
+          console.log("error", error.message);
+        });
+    }
+  }, []);
+
   // Calls API with query and returns results
   const searchSuggestion = query => {
     return opencage
@@ -46,7 +63,6 @@ const AddPlaceForm = ({ hide, preLocation }) => {
         if (results) {
           return results;
         } else {
-          console.log("no results");
           return [];
         }
       })
@@ -87,32 +103,15 @@ const AddPlaceForm = ({ hide, preLocation }) => {
     }
   };
 
-  // Geocode the coordinates from MapBox into formatted location
-  useEffect(() => {
-    if (preLocation) {
-      const query = `${preLocation[1]},${preLocation[0]}`;
-      opencage
-        .geocode({ q: query, key: process.env.REACT_APP_OCD_API_KEY })
-        .then(data => {
-          if (data.status.code == 200 && data.results.length > 0) {
-            setLocation(data.results[0].formatted);
-          }
-        })
-        .catch(error => {
-          console.log("error", error.message);
-        });
-    }
-  }, []);
-
   // Can't submit a place if these properties are not met
   const isInvalid = name === "" || location === "";
 
   return (
     <form className="AddPlace" onSubmit={handleSubmit}>
       <Row label="Name:">
-        <input 
-          value={name} 
-          onChange={evt => setName(evt.target.value)} 
+        <input
+          value={name}
+          onChange={evt => setName(evt.target.value)}
           className="InputField1"
           placeholder="Name of the place"
         />
@@ -130,7 +129,6 @@ const AddPlaceForm = ({ hide, preLocation }) => {
             <option
               key={idx}
               value={value.formatted}
-              onClick={() => console.log("lciK")}
             />
           ))}
         </datalist>
@@ -163,7 +161,7 @@ const AddPlaceForm = ({ hide, preLocation }) => {
         />
       </Row>
       <Row>
-        <input type="submit" className="Btn1"/>
+        <input type="submit" className="Btn1" disabled={isInvalid}/>
       </Row>
     </form>
   );
