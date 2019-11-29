@@ -1,6 +1,6 @@
 import React, { useState, useContext } from "react";
 import * as ROUTES from "../../data/constants/routes.js";
-import { FirebaseContext } from "../Firebase/index.js";
+import { useFirebase } from "../../util/Firebase";
 import { useHistory, useLocation } from "react-router-dom";
 import { SignUpLink } from "../SignUp/SignUp.js";
 import { PasswordForgetLink } from "../ForgotPassword/ForgotPassword.js";
@@ -31,7 +31,7 @@ const LoginFormBase = () => {
   const [password, setPassword] = useState(INITIAL_STATE.password);
   const [error, setError] = useState(INITIAL_STATE.error);
 
-  const firebase = useContext(FirebaseContext);
+  const firebase = useFirebase();
   const history = useHistory();
 
   const onSubmit = evt => {

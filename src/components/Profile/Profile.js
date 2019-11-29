@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Fab from '@material-ui/core/Fab';
 import Icon from '@material-ui/core/Icon';
-import { useFirebase } from '../Firebase';
+import { useFirebase } from '../../util/Firebase';
 
 import "./Profile.css";
 

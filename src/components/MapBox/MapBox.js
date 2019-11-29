@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import ReactMapGL, { BaseControl, Marker } from "react-map-gl";
-import useWindowSize from "../Hooks/WindowSize";
-import * as DIMENSIONS from "../../data/constants/dimensions";
+import useWindowSize from "../../util/WindowSize";
 
 import "./MapBox.css";
 

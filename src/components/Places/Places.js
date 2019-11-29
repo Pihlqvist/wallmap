@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import MapBox from "../MapBox/MapBox";
 import AddPlace from "../AddPlace/AddPlace";
-import { useFirebase } from "../Firebase";
+import { useFirebase } from "../../util/Firebase";
 import {Place} from "../Place/Place";
 import ModalWrapper from "../Modal/Modal";
 import { useAuth } from "../Session/UserAuth";

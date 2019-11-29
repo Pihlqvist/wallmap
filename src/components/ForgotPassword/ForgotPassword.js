@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import * as ROUTES from '../../data/constants/routes.js';
-import { useFirebase } from '../Firebase/index.js';
+import { useFirebase } from '../../util/Firebase';
 
 const ForgotPassword = () => {
 	return (

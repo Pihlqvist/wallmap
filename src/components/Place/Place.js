@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useFirebase } from "../Firebase";
+import { useFirebase } from '../../util/Firebase';
 import { useAuth } from "../Session/UserAuth";
 import ImageGallery from 'react-image-gallery';
 

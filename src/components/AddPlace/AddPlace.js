@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import * as opencage from "opencage-api-client";
-import { useFirebase } from "../Firebase";
+import { useFirebase } from '../../util/Firebase';
 import { useAuth } from "../Session/UserAuth";
 
 import "./AddPlace.css";

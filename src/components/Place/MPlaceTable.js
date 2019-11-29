@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { usePlaces } from "../Places/Places";
 import MaterialTable from "material-table";
-import { useFirebase } from "../Firebase";
+import { useFirebase } from '../../util/Firebase';
 import { useAuth } from "../Session/UserAuth";
 
 // Columns used in the table

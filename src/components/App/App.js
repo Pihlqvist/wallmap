@@ -24,7 +24,6 @@ const App = () => {
         <Navigation />
 
         <AuthorizedRoute exact path={ROUTES.LANDING} component={Landing} />
-        <Route exact path={ROUTES.ABOUT} component={About} />
         <AuthorizedRoute exact path={ROUTES.SIGN_UP} component={SignUp} />
         <AuthorizedRoute exact path={ROUTES.LOGIN} component={Login} />
         <PrivateRoute exact path={ROUTES.PROFILE} component={Profile} />

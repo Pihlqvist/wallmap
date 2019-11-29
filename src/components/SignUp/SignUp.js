@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { useFirebase } from "../Firebase";
+import { useFirebase } from '../../util/Firebase';
 import { useHistory } from "react-router-dom";
 
 import * as ROUTES from "../../data/constants/routes";
