@@ -1,33 +1,31 @@
 import React, { useState, useEffect } from "react";
 import MapBox from "../MapBox/MapBox";
 import AddPlace from "../AddPlace/AddPlace";
-import { useFirebase } from "../../util/Firebase";
-import {Place} from "../Place/Place";
 import ModalWrapper from "../Modal/Modal";
-import { useAuth } from "../../util/UserAuth";
-import MPlaceTable from "../Place/MPlaceTable";
-import { ProfileBtn } from "../Profile/Profile";
+import PlacesTable from "../PlacesTable/PlacesTable";
 import { usePlaces } from "../../data/model/PlaceModel";
+import { Place } from "../Place/Place";
+import { ProfileBtn } from "../Profile/Profile";
 
-import Fab from '@material-ui/core/Fab';
-import Icon from '@material-ui/core/Icon';
+import Fab from "@material-ui/core/Fab";
+import Icon from "@material-ui/core/Icon";
 
 import "./Places.css";
 
 /**
  * Places is a stateful component that contains the users place objects
  * and the map component. This component gives the map the place objects
- * to draw as markers and handels user interactions like adding and 
+ * to draw as markers and handels user interactions like adding and
  * removing places.
  */
 const Places = () => {
   const [markers, setMarkers] = useState(null);
-  const [modal, setModal] = useState(
-    {showing: false, comp: null, bckgrnd: true}
-  );
-  
-  const firebase = useFirebase();   // TODO: Needed after places hook ?
-  const auth = useAuth();           // TODO: Needed after places hook ?
+  const [modal, setModal] = useState({
+    showing: false,
+    comp: null,
+    bckgrnd: true
+  });
+
   const places = usePlaces();
 
   // Create markers from place objects
@@ -41,62 +39,73 @@ const Places = () => {
     }
   }, [places]);
 
-  // When a marker have been clicked we open a place component 
+  // When a marker have been clicked we open a place component
   // with the corresponding place object
   const handleMarkerClick = evt => {
-    let targetId = evt.currentTarget.id;
-    let aPlace = places.filter(place => place.id == targetId);
+    selectPlace(evt.currentTarget.id);
+  };
+
+  // Toggle the modal
+  const toggle = () => {
     setModal({
-      showing: true, 
-      comp: <Place place={aPlace[0]} />,
-      bckgrnd: true,
+      showing: !modal.showing,
+      comp: modal.comp,
+      bckgrnd: modal.bckgrnd
     });
   };
-  
-  // Toggle a model
-	const toggle = () => {
-    setModal({showing: !modal.showing, comp: modal.comp, bckgrnd: modal.bckgrnd})
-  }
 
-  const selectPlace = (id) => {
+  // Hide the modal
+  const hide = () => {
+    setModal({ showing: false, comp: modal.comp, bckgrnd: modal.bckgrnd });
+  };
+
+  // Displays the place with the given id in a modal
+  const selectPlace = id => {
     let aPlace = places.filter(place => place.id == id);
     if (!aPlace) {
       console.error("Place not in array");
       return;
     }
-    setModal({showing: true, comp: <Place place={aPlace[0]} />});
-  }
-  
-  const hide = () => {
-    setModal({showing: false, comp: modal.comp, bckgrnd: modal.bckgrnd});
-  }
+    setModal({
+      showing: true,
+      comp: <Place place={aPlace[0]} />,
+      bckgrnd: true
+    });
+  };
 
-  const handleMapClick = (evt) => {
+  // Clicked on the map not a marker. 
+  const handleMapClick = evt => {
     evt.preventDefault(); // Prevent context menu
     setModal({
-      showing: true, 
-      comp: <AddPlace hide={hide} preLocation={evt.lngLat}/>,
-      bckgrnd: true,
-    })
-  }
+      showing: true,
+      comp: <AddPlace hide={hide} preLocation={evt.lngLat} />,
+      bckgrnd: true
+    });
+  };
 
   return (
     <div className="Places">
-      <MapButtons 
-        onClickAdd={() => setModal({showing: true, comp: <AddPlace hide={hide}/>,bckgrnd: true })}
-        onClickList={() => setModal(
-          {
-            showing: true, 
-            comp: <MPlaceTable places={places} selectPlace={selectPlace} />,
-            bckgrnd: false,
-          }
-        )}
+      <MapButtons
+        onClickAdd={() =>
+          setModal({
+            showing: true,
+            comp: <AddPlace hide={hide} />,
+            bckgrnd: true
+          })
+        }
+        onClickList={() =>
+          setModal({
+            showing: true,
+            comp: <PlacesTable places={places} selectPlace={selectPlace} />,
+            bckgrnd: false
+          })
+        }
       />
       <ProfileBtn />
-      <MapBox 
+      <MapBox
         handleMapClick={handleMapClick}
-        handleMarkerClick={handleMarkerClick} 
-        markers={markers} 
+        handleMarkerClick={handleMarkerClick}
+        markers={markers}
       />
       <ModalWrapper
         isShowing={modal.showing}
@@ -109,7 +118,7 @@ const Places = () => {
 };
 
 // Button panel to interact with the map
-const MapButtons = ({onClickAdd, onClickList}) => {
+const MapButtons = ({ onClickAdd, onClickList }) => {
   return (
     <div className="MapButtons">
       <Fab className="AddBtn MapBtn" onClick={onClickAdd}>
@@ -120,6 +129,6 @@ const MapButtons = ({onClickAdd, onClickList}) => {
       </Fab>
     </div>
   );
-}
+};
 
 export default Places;
