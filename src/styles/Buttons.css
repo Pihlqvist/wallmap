@@ -35,6 +35,43 @@
   background-color: rgb(182, 105, 112);
 }
 
+.LinkBtn1 {
+  text-align: center;
+  background: #E7717D;
+  display: flex;
+
+  transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,border 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+
+  padding: 6px 16px;
+  font-size: 0.875rem;
+  min-width: 64px;
+  box-sizing: border-box;
+
+  font-style: normal;
+  font-weight: bold;
+  font-size: 13px;
+  line-height: 15px;
+
+  border-radius: 2px;
+}
+
+.LinkBtn1:hover {
+  cursor: pointer;
+  box-shadow: 0px 0px 3px 1px rgba(0,0,0,0.2);
+}
+
+.LinkBtn1 a {
+  text-decoration: none;
+  color: #EEEEEE;
+  width: 100%;
+  text-align: center;
+  line-height: 28px;  
+}
+
+.LinkBtn1:hover a {
+  color: #FFF !important;
+}
+
 .BtnFile, .BtnFile[disabled] {
   background-color: rgb(9, 143, 7);
 }

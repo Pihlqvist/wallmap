@@ -32,11 +32,8 @@ const LeftNavNonAuth = () => {
   return (
     <div className="LeftNav">
       <ul>
-        <li>
+        <li className="Wallmap">
         <Link to={ROUTES.LANDING}>WallMap</Link>
-        </li>
-        <li>
-          <Link to={ROUTES.ABOUT}>About</Link>
         </li>
       </ul>
     </div>
@@ -49,9 +46,6 @@ const LeftNavAuth = () => {
       <ul>
         <li>
         <Link to={ROUTES.LANDING}>WallMap</Link>
-        </li>
-        <li>
-          <Link to={ROUTES.ABOUT}>About</Link>
         </li>
         <li>
           <Link to={ROUTES.PLACES}>Places</Link>
@@ -80,10 +74,10 @@ const RightNavNonAuth = () => {
   return (
     <div className="RightNav">
       <ul>
-        <li>
+        <li className="NavLogin">
           <Link to={ROUTES.LOGIN}>Login</Link>
         </li>
-        <li>
+        <li className="LinkBtn1">
           <Link to={ROUTES.SIGN_UP}>Sign Up</Link>
         </li>
       </ul>

@@ -4,10 +4,78 @@
 }
 .LeftNav li, .RightNav li {
   display: inline;
-  margin-left: 5px;
   list-style-type: none;
+  text-decoration: none;
 }
 
 .LeftNav li a:link, .RightNav li a:link {
   text-decoration: none;
+}
+
+.RightNav {
+  margin-right: 2rem;
+}
+
+.NavLogin a {
+  color: #525a5a;
+}
+
+.Wallmap {
+  position: absolute;
+  width: 94px;
+  height: 28px;
+
+  font-style: normal;
+  font-weight: bold;
+  font-size: 24px;
+  line-height: 28px;
+}
+
+.Wallmap a {
+  color: #E7717D;
+}
+
+.NavLogin, .NavSignUp {
+  /* position: absolute; */
+  width: 38px;
+  height: 15px;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 13px;
+  line-height: 15px;
+}
+
+.NavLogin {
+  margin-left: 88px;
+  margin-right: 10px;
+  transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,border 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+}
+
+.NavLogin *:hover {
+  color: #8e9292;
+}
+
+@media only screen and (max-width: 768px) {
+  /* For mobile phones: */
+  .Navigation {
+    display: flex;
+    flex-direction: column;
+    justify-content: unset;
+  }
+  .Wallmap {
+    position: absolute;
+    top: 20px;
+    margin: 0 auto;
+  }
+  .RightNav {
+    position: absolute;
+    top: 10px;
+    right: 40px;
+  }
+  .NavSignUp {
+    margin: 0 auto;
+  }
+
+
+  
 }
