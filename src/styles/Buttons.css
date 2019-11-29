@@ -1,7 +1,7 @@
-
-.Btn1, .BtnFile {
+.Btn1,
+.BtnFile {
   color: #fff;
-  background-color: #E7717D;
+  background-color: #e7717d;
   border: 0;
 
   padding: 6px 16px;
@@ -16,20 +16,24 @@
 
   cursor: pointer;
 
-  box-shadow: 0px 3px 1px -2px rgba(0,0,0,0.2), 0px 2px 2px 0px rgba(0,0,0,0.14), 0px 1px 5px 0px rgba(0,0,0,0.12);
+  box-shadow: 0px 3px 1px -2px rgba(0, 0, 0, 0.2),
+    0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12);
 
-
-  transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,border 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+  transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
+    box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
+    border 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
 }
 
-.Btn1:hover:enabled, .BtnFile:hover:enabled {
-  box-shadow: 0px 2px 4px -1px rgba(0,0,0,0.2), 0px 4px 5px 0px rgba(0,0,0,0.14), 0px 1px 10px 0px rgba(0,0,0,0.12);
+.Btn1:hover:enabled,
+.BtnFile:hover:enabled {
+  box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.2),
+    0px 4px 5px 0px rgba(0, 0, 0, 0.14), 0px 1px 10px 0px rgba(0, 0, 0, 0.12);
   background-color: rgb(143, 57, 65);
 }
 
 .Btn1:disabled,
-.Btn1[disabled], 
-.BtnFile:disabled, 
+.Btn1[disabled],
+.BtnFile:disabled,
 .BtnFile[disabled] {
   color: #fff;
   background-color: rgb(182, 105, 112);
@@ -37,13 +41,14 @@
 
 .LinkBtn1 {
   text-align: center;
-  background: #E7717D;
+  background: #e7717d;
   display: flex;
 
-  transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,border 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+  transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
+    box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
+    border 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
 
   padding: 6px 16px;
-  font-size: 0.875rem;
   min-width: 64px;
   box-sizing: border-box;
 
@@ -57,22 +62,23 @@
 
 .LinkBtn1:hover {
   cursor: pointer;
-  box-shadow: 0px 0px 3px 1px rgba(0,0,0,0.2);
+  box-shadow: 0px 0px 3px 1px rgba(0, 0, 0, 0.2);
 }
 
 .LinkBtn1 a {
   text-decoration: none;
-  color: #EEEEEE;
+  color: #eeeeee;
   width: 100%;
   text-align: center;
-  line-height: 28px;  
+  line-height: 28px;
 }
 
 .LinkBtn1:hover a {
-  color: #FFF !important;
+  color: #fff !important;
 }
 
-.BtnFile, .BtnFile[disabled] {
+.BtnFile,
+.BtnFile[disabled] {
   background-color: rgb(9, 143, 7);
 }
 .BtnFile:hover:enabled {

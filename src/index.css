@@ -3,17 +3,13 @@ body {
   font-family: "Roboto", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  
-  background-color: rgba(228,221,211);/*rgba(133,147,147,0.4);*/
-
-  background-image: url('./assets/images/world.svg');
+  background-color: rgba(228, 221, 211);
+  background-image: url("./assets/images/world.svg");
   background-size: cover;
-  /* background-position: center; */
   background-repeat: no-repeat;
   background-blend-mode: color-dodge;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
 }
