@@ -4,7 +4,6 @@ import { Route } from "react-router-dom";
 import * as ROUTES from "../../data/constants/routes.js";
 
 import Landing from "../Landing/Landing.js";
-import About from "../About/About.js";
 import "./App.css";
 import SignUp from "../SignUp/SignUp.js";
 import Login from "../Login/Login.js";
@@ -12,7 +11,7 @@ import Profile from "../Profile/Profile.js";
 import Places from "../Places/Places.js";
 import ForgotPassword from "../ForgotPassword/ForgotPassword.js";
 import Navigation from "../Navigation/Navigation.js";
-import { ProvideAuth } from "../Session/UserAuth.js";
+import { ProvideAuth } from "../../util/UserAuth.js";
 import { PrivateRoute } from "../Route/PrivateRoute.js";
 import { AuthorizedRoute } from "../Route/AuthorizedRoute.js";
 

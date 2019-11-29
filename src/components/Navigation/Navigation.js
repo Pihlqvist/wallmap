@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {Link, useLocation} from 'react-router-dom';
 import * as ROUTES from '../../data/constants/routes.js';
-import { useAuth } from "../Session/UserAuth.js";
+import { useAuth } from "../../util/UserAuth.js";
 import { LogOutButton } from "../Logout/Logout.js";
 
 import './Navigation.css';

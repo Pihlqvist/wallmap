@@ -4,7 +4,7 @@ import AddPlace from "../AddPlace/AddPlace";
 import { useFirebase } from "../../util/Firebase";
 import {Place} from "../Place/Place";
 import ModalWrapper from "../Modal/Modal";
-import { useAuth } from "../Session/UserAuth";
+import { useAuth } from "../../util/UserAuth";
 import MPlaceTable from "../Place/MPlaceTable";
 import { ProfileBtn } from "../Profile/Profile";
 

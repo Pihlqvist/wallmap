@@ -1,27 +1,25 @@
 import React, { useState, useEffect, useContext } from "react";
-import { useFirebase } from '../../util/Firebase';
+import { useFirebase } from "./Firebase";
 
 const AuthUserContext = React.createContext(null);
 
 /**
- * Provider component that wraps your app and makes auth object 
+ * Provider component that wraps your app and makes auth object
  * available to any child component that calls useAuth()
  */
-export const ProvideAuth = ({ children }) => {
+const ProvideAuth = ({ children }) => {
   const auth = useProvideAuth();
   return (
-    <AuthUserContext.Provider value={auth}>
-      {children}
-    </AuthUserContext.Provider>
+    <AuthUserContext.Provider value={auth}>{children}</AuthUserContext.Provider>
   );
-}
+};
 
 /**
  * Hook for child components to get the auth object
  * and re-render when it changes.
  * @return {Object} AuthUserContext
  */
-export const useAuth = () => {
+const useAuth = () => {
   return useContext(AuthUserContext);
 };
 
@@ -30,8 +28,8 @@ export const useAuth = () => {
  * @return {Object} auth object
  */
 const useProvideAuth = () => {
-  const [user, setUser] = useState(null);   // Stores the authUser
-  const [done, setDone] = useState(false);  // True when we have user handler up
+  const [user, setUser] = useState(null); // Stores the authUser
+  const [done, setDone] = useState(false); // True when we have user handler up
   const firebase = useFirebase();
 
   /**
@@ -45,8 +43,7 @@ const useProvideAuth = () => {
       if (authUser) {
         setUser(authUser);
         setDone(true);
-      }
-      else {
+      } else {
         setUser(null);
         setDone(true);
       }
@@ -56,18 +53,8 @@ const useProvideAuth = () => {
     return () => unsubscribe();
   }, [firebase.auth]);
 
-
-  // If user was logged in from previouse session, set that as authUser
-  useEffect(() => {
-    const authUser = JSON.parse(localStorage.getItem('authUser'));
-    if (authUser) {
-      setUser(authUser);
-      setDone(true);
-    }
-  }, []);
-
   // Return the user object
-  return (
-    {user, done}
-  );
-}
+  return { user, done };
+};
+
+export { ProvideAuth, useAuth };

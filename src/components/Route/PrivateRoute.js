@@ -1,6 +1,6 @@
 import React from "react";
 import { Route, Redirect } from "react-router-dom";
-import { useAuth } from "../Session/UserAuth";
+import { useAuth } from "../../util/UserAuth";
 
 import * as ROUTES from "../../data/constants/routes.js";
 

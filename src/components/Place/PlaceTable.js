@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { usePlaces } from "../Places/Places";
 import { useFirebase } from '../../util/Firebase';
-import { useAuth } from "../Session/UserAuth";
+import { useAuth } from "../../util/UserAuth";
 
 import "./PlaceTable.css";
 
