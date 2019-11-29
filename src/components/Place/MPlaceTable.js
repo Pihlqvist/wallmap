@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { usePlaces } from "../Places/Places";
+import { usePlaces } from "../../data/model/PlaceModel";
 import MaterialTable from "material-table";
 import { useFirebase } from '../../util/Firebase';
 import { useAuth } from "../../util/UserAuth";
