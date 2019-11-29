@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { useFirebase } from "../Firebase";
+import { useFirebase } from "../../util/Firebase";
 import { useHistory } from "react-router-dom";
 
 import * as ROUTES from "../../data/constants/routes";
@@ -14,20 +14,12 @@ const SignUp = () => {
   );
 };
 
-const INITIAL_STATE = {
-  username: "",
-  email: "",
-  passwordOne: "",
-  passwordTwo: "",
-  error: null
-};
-
 const SignUpForm = () => {
-  const [username, setUsername] = useState(INITIAL_STATE.username);
-  const [email, setEmail] = useState(INITIAL_STATE.email);
-  const [passwordOne, setPasswordOne] = useState(INITIAL_STATE.passwordOne);
-  const [passwordTwo, setPasswordTwo] = useState(INITIAL_STATE.passwordTwo);
-  const [error, setError] = useState(INITIAL_STATE.error);
+  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
+  const [passwordOne, setPasswordOne] = useState("");
+  const [passwordTwo, setPasswordTwo] = useState("");
+  const [error, setError] = useState(null);
 
   const firebase = useFirebase();
   const history = useHistory();
@@ -38,24 +30,22 @@ const SignUpForm = () => {
     firebase
       .doCreateUserWithEmailAndPassword(email, passwordOne)
       .then(authUser => {
-
         // Add additional infromation the the users profile
-        authUser.user.updateProfile({displayName: username});
+        authUser.user.updateProfile({ displayName: username });
 
         // Create a user in your Firebase realtime database
         return firebase.user(authUser.user.uid).set({
           username,
           email,
-          place: "",
+          place: ""
         });
       })
       .then(() => {
-				// TODO: Find a better way to init all the states
-				setUsername(INITIAL_STATE.username);
-				setEmail(INITIAL_STATE.email);
-				setPasswordOne(INITIAL_STATE.passwordOne);
-				setPasswordTwo(INITIAL_STATE.passwordTwo);
-				setError(INITIAL_STATE.error);
+        setUsername("");
+        setEmail("");
+        setPasswordOne("");
+        setPasswordTwo("");
+        setError(null);
         history.push(ROUTES.PLACES);
       })
       .catch(error => {
@@ -115,7 +105,10 @@ const SignUpForm = () => {
 const SignUpLink = () => {
   return (
     <p>
-      Don't have an account? <Link to={ROUTES.SIGN_UP} className="AllwaysBlueLinks">Sign Up</Link>
+      Don't have an account?{" "}
+      <Link to={ROUTES.SIGN_UP} className="AllwaysBlueLinks">
+        Sign Up
+      </Link>
     </p>
   );
 };

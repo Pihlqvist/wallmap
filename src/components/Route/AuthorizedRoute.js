@@ -1,6 +1,6 @@
 import React from "react";
 import { Route, Redirect } from "react-router-dom";
-import { useAuth } from "../Session/UserAuth";
+import { useAuth } from "../../util/UserAuth";
 
 import * as ROUTES from "../../data/constants/routes.js";
 
@@ -10,8 +10,6 @@ import * as ROUTES from "../../data/constants/routes.js";
  */
 const AuthorizedRoute = ({ component: Component, ...rest }) => {
   const auth = useAuth();
-
-  console.log("AuthorizedRoute auth: ", auth);
 
   return auth.done ? (
     // Show the component only when a user does not exist

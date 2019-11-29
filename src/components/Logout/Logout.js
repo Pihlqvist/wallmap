@@ -1,5 +1,5 @@
-import React from 'react';
-import { useFirebase } from '../Firebase';
+import React from "react";
+import { useFirebase } from "../../util/Firebase";
 
 const LogOutButton = () => {
   const firebase = useFirebase();

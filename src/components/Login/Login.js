@@ -1,7 +1,7 @@
-import React, { useState, useContext } from "react";
+import React, { useState } from "react";
 import * as ROUTES from "../../data/constants/routes.js";
-import { FirebaseContext } from "../Firebase/index.js";
-import { useHistory, useLocation } from "react-router-dom";
+import { useFirebase } from "../../util/Firebase";
+import { useHistory } from "react-router-dom";
 import { SignUpLink } from "../SignUp/SignUp.js";
 import { PasswordForgetLink } from "../ForgotPassword/ForgotPassword.js";
 
@@ -20,18 +20,12 @@ const Login = () => {
   );
 };
 
-const INITIAL_STATE = {
-  email: "",
-  password: "",
-  error: null
-};
+const LoginForm = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState(null);
 
-const LoginFormBase = () => {
-  const [email, setEmail] = useState(INITIAL_STATE.email);
-  const [password, setPassword] = useState(INITIAL_STATE.password);
-  const [error, setError] = useState(INITIAL_STATE.error);
-
-  const firebase = useContext(FirebaseContext);
+  const firebase = useFirebase();
   const history = useHistory();
 
   const onSubmit = evt => {
@@ -40,9 +34,9 @@ const LoginFormBase = () => {
     firebase
       .doSignInWithEmailAndPassword(email, password)
       .then(() => {
-        setEmail(INITIAL_STATE.email);
-        setPassword(INITIAL_STATE.password);
-        setError(INITIAL_STATE.error);
+        setEmail("");
+        setPassword("");
+        setError(null);
         // TODO: If we where redirected, push to the redirect
         history.push(ROUTES.PLACES);
       })
@@ -82,8 +76,4 @@ const LoginFormBase = () => {
   );
 };
 
-const LoginForm = LoginFormBase;
-
 export default Login;
-
-export { LoginForm };

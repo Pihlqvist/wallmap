@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { useFirebase } from "../Firebase";
-import { useAuth } from "../Session/UserAuth";
-import ImageGallery from 'react-image-gallery';
+import { useFirebase } from "../../util/Firebase";
+import { useAuth } from "../../util/UserAuth";
+import ImageGallery from "react-image-gallery";
 
 import "./Place.css";
 
@@ -9,39 +9,39 @@ const Place = ({ place }) => {
   const firebase = useFirebase();
   const auth = useAuth();
   const [imageUrl, setImageUrl] = useState("");
-  console.log("PLACE: ", place);
 
-  useEffect (() => {
+  useEffect(() => {
     console.log("setting image url");
     const listRef = firebase.images(auth.user.uid, place.id);
 
-    listRef.listAll().then((res) => {
+    listRef.listAll().then(res => {
       res.items.forEach(function(itemRef) {
         console.log(itemRef);
-        itemRef.getDownloadURL()
-        .then(url => {
-          setImageUrl(url);
-        })
-        .catch(error => {
-          console.error(error);
-        });
-      });    
+        itemRef
+          .getDownloadURL()
+          .then(url => {
+            setImageUrl(url);
+          })
+          .catch(error => {
+            console.error(error);
+          });
+      });
     });
   }, [firebase]);
 
   const images = [
     {
-      original: 'https://picsum.photos/id/1018/1000/600/',
-      thumbnail: 'https://picsum.photos/id/1018/250/150/',
+      original: "https://picsum.photos/id/1018/1000/600/",
+      thumbnail: "https://picsum.photos/id/1018/250/150/"
     },
     {
-      original: 'https://picsum.photos/id/1015/1000/600/',
-      thumbnail: 'https://picsum.photos/id/1015/250/150/',
+      original: "https://picsum.photos/id/1015/1000/600/",
+      thumbnail: "https://picsum.photos/id/1015/250/150/"
     },
     {
-      original: 'https://picsum.photos/id/1019/1000/600/',
-      thumbnail: 'https://picsum.photos/id/1019/250/150/',
-    },
+      original: "https://picsum.photos/id/1019/1000/600/",
+      thumbnail: "https://picsum.photos/id/1019/250/150/"
+    }
   ];
 
   return (
@@ -55,15 +55,16 @@ const Place = ({ place }) => {
         </div>
         <div className="PlaceDate">
           <span className="PlaceTitle">Date: </span>
-          {place.date.toLocaleDateString('sv')}
-        </div>  {/* TODO: Dynamic date */}
+          {place.date.toLocaleDateString("sv")}
+        </div>{" "}
+        {/* TODO: Dynamic date */}
       </div>
       <p className="PlaceDescription">
         <span className="PlaceTitle">Description: </span>
         {place.description}
-        </p>
+      </p>
     </div>
   );
 };
 
-export { Place }
+export { Place };
