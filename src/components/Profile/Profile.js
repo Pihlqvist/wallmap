@@ -19,8 +19,14 @@ const ProfileMenu = () => {
 	return (
 		<div className="Popper">
 			<ul className="MenuList">
-				<li className="MenuListItem">Settings</li>
-				<li className="MenuListItem" onClick={firebase.doSignOut}>Logout</li>
+				<li className="MenuListItem">Profile</li>
+				<li 
+					className="MenuListItem" 
+					onClick={firebase.doSignOut}
+					style={{color: "rgb(143, 57, 65)"}}
+					>
+						Logout
+					</li>
 			</ul>
 		</div>
 	)
