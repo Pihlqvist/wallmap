@@ -2,47 +2,31 @@ import React, { useState, useEffect } from "react";
 import { useFirebase } from "../../util/Firebase";
 import { useAuth } from "../../util/UserAuth";
 import ImageGallery from "react-image-gallery";
+import { useImages } from "../../data/model/PlaceModel";
 
 import "./Place.css";
 
 const Place = ({ place }) => {
+
+  const [images, setImages] = useState([]);
+
   const firebase = useFirebase();
   const auth = useAuth();
-  const [imageUrl, setImageUrl] = useState("");
 
+  // Get images from Firebase Storage
   useEffect(() => {
-    console.log("setting image url");
-    const listRef = firebase.images(auth.user.uid, place.id);
-
-    listRef.listAll().then(res => {
-      res.items.forEach(function(itemRef) {
-        console.log(itemRef);
-        itemRef
-          .getDownloadURL()
-          .then(url => {
-            setImageUrl(url);
-          })
-          .catch(error => {
-            console.error(error);
-          });
-      });
+    firebase.images(auth.user.uid, place.id).listAll()
+    .then(placeDir => {
+      return Promise.all(placeDir.items.map(imgRef => {
+        return imgRef.getDownloadURL()
+      }));
+    })
+    .then(urls => {
+      setImages(urls.map(url => { 
+        return {original: url, thumbnail: url}
+      }));
     });
-  }, [firebase]);
-
-  const images = [
-    {
-      original: "https://picsum.photos/id/1018/1000/600/",
-      thumbnail: "https://picsum.photos/id/1018/250/150/"
-    },
-    {
-      original: "https://picsum.photos/id/1015/1000/600/",
-      thumbnail: "https://picsum.photos/id/1015/250/150/"
-    },
-    {
-      original: "https://picsum.photos/id/1019/1000/600/",
-      thumbnail: "https://picsum.photos/id/1019/250/150/"
-    }
-  ];
+  }, [auth])
 
   return (
     <div className="Place">

@@ -60,8 +60,8 @@ const Places = () => {
   };
 
   // Displays the place with the given id in a modal
-  const selectPlace = id => {
-    let aPlace = places.filter(place => place.id == id);
+  const selectPlace = pid => {
+    let aPlace = places.filter(place => place.id === pid);
     if (!aPlace) {
       console.error("Place not in array");
       return;
