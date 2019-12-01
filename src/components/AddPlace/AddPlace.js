@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import * as opencage from "opencage-api-client";
 import { useFirebase } from "../../util/Firebase";
 import { useAuth } from "../../util/UserAuth";
 import { useDebounce } from "../../util/Debounce";
 import { ImageDropzone } from "../Dropzone/Dropzone";
+import SuggestionInputField from "../SuggestionInput/SuggestionInput";
 
 import "./AddPlace.css";
 
@@ -21,6 +22,7 @@ const AddPlaceForm = ({ hide, preLocation }) => {
   const [description, setDescription] = useState("");
   const [images, setImages] = useState(null); // FileList
   const [suggestions, setSuggestions] = useState([]);
+  const [locationData, setLocationData] = useState(null);
 
   const auth = useAuth();
   const firebase = useFirebase();
@@ -77,10 +79,10 @@ const AddPlaceForm = ({ hide, preLocation }) => {
     evt.preventDefault();
 
     // If we have the coordinates, create the place
-    if (suggestions[0]) {
+    if (locationData) {
       const refKey = firebase.place(auth.user.uid).push({
         name,
-        location: suggestions[0],
+        location: locationData,
         date: Date(date),
         description,
         image: ""
@@ -120,20 +122,12 @@ const AddPlaceForm = ({ hide, preLocation }) => {
               placeholder="Name of the place"
             />
           </div>
-          <div className="Row">
-            <input
-              value={location}
-              list="datalist"
-              onChange={evt => setLocation(evt.target.value)}
-              className="InputField1"
-              placeholder="City, country or address"
-            />
-            <datalist id="datalist">
-              {suggestions.map((value, idx) => (
-                <option key={idx} value={value.formatted} />
-              ))}
-            </datalist>
-          </div>
+          <SuggestionInputField 
+            location={location} 
+            setLocation={setLocation}
+            suggestions={suggestions}
+            setLocationData={setLocationData}
+          />
           <div className="Row">
             <input
               value={date}
@@ -162,12 +156,5 @@ const AddPlaceForm = ({ hide, preLocation }) => {
     </form>
   );
 };
-
-const Row = props => (
-  <div className="Row">
-    <span className="rowTitle">{props.label}</span>
-    <span className="rowContent">{props.children}</span>
-  </div>
-);
 
 export default AddPlace;
