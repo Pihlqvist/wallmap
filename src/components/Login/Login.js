@@ -16,6 +16,7 @@ const Login = () => {
         <PasswordForgetLink />
         <SignUpLink />
       </div>
+      <div className="Background"></div>
     </div>
   );
 };

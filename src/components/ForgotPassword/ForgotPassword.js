@@ -8,6 +8,7 @@ const ForgotPassword = () => {
     <div className="FormContainer1">
       <h1>Forgot Password</h1>
       <PasswordForgetForm />
+      <div className="Background"></div>
     </div>
   );
 };

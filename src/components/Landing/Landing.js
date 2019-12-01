@@ -13,6 +13,8 @@ const Landing = () => {
           <Link to={ROUTES.SIGN_UP}>Get Started Now</Link>
         </div>
       </div>
+
+      <div className="Background"></div>
     </div>
   );
 };
