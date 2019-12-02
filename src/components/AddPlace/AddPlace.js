@@ -49,6 +49,7 @@ const AddPlaceForm = ({ hide, preLocation }) => {
         .then(data => {
           if (data.status.code == 200 && data.results.length > 0) {
             setLocation(data.results[0].formatted);
+            setLocationData(data.results[0]);
           }
         })
         .catch(error => {
