@@ -132,6 +132,7 @@ const AddPlaceForm = ({ hide, preLocation }) => {
               type="date"
               onChange={evt => setDate(evt.target.value)}
               className="InputField1"
+              placeholder="dd/mm/yyyy"
             />
           </div>
           <div className="Row">
