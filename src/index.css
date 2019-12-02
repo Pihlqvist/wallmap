@@ -7,7 +7,7 @@ body {
 }
 
 input, select, textarea{
-  color: grey;
+  color: rgb(32, 32, 32);
 }
 
 code {
