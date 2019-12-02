@@ -29,7 +29,6 @@ const SuggestionInputField = ({
   }, []);
 
   const handleSelect = location => {
-    console.log("location: ", location);
     setLocation(location.formatted);
     setLocationData(location);
     setDone(true);
