@@ -43,7 +43,10 @@ const MapBox = ({ handleMarkerClick, markers, handleMapClick }) => {
           WallMap
         </div>
         <div className="NavigationControl">
-          <NavigationControl showCompass={false}/>
+          <NavigationControl 
+            showCompass={false} 
+            onViewportChange={viewport => setViewPort({ ...viewport, minZoom:1.3, maxZoom:5 })}
+          />
         </div>
         {markers &&
           markers.map(mark => {
