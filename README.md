@@ -38,51 +38,40 @@ REACT_APP_MAPBOX_ACCESS_TOKEN=
 - Fredrik Pihlqvist fpih@kth.se
 - Ali El Tom  eltom@kth.se
 
-## Project file structure (short description/purpose of each file)
+## Project file structure
+```
+wallmap
+├── public
+├── src                     
+│   ├── assets                    # Assets used in project
+│   ├── components                # Components
+│   │   ├── AddPlace              # Form for adding a place and saving it to DB
+│   │   ├── App                   # MAIN App of react, used in index.js
+│   │   ├── Dropzone              # Dropzone for image files
+│   │   ├── ForgotPassword        # Forgot password form
+│   │   ├── Landing               # Landing page 
+│   │   ├── MapBox                # Main Map component, draws map and adds markers
+│   │   ├── Modal                 # Modal wrapper component, displays other components as modals
+│   │   ├── Navigation            # Navigation bar, used on landing/login/signup pages
+│   │   ├── Place                 # Place view, used to view a users place/pin
+│   │   ├── Places                # Statefull component that houses the map and picks modal
+│   │   ├── PlacesTable           # Table of all the users places, dislayed in a modal
+│   │   ├── Profile               # Contains profile button used in places and a profile form.
+│   │   ├── Route                 # Restricts routing when logged in and logged out. controls session
+│   │   ├── SignUp                # Sign up component form
+│   │   └── SuggestionInput       # Input with debounced suggestion search list
+│   ├── data                
+│   │   ├── constants             # Houses our constants used in the project
+│   │   └── model
+│   │       └── PlaceModel.js     # Imports the data from our DB and makes it available for the app
+│   ├── styles                    # styles that are used in more than one component
+│   ├── util
+│   │   ├── Firebase              # Firebase Auth/DB/Storage API
+│   │   ├── Debounce.js           # Debounce hook, used to debounce a value
+│   │   ├── UserAuth.js           # Stores the current user session info
+│   │   └── WindowSize.js         # Window size hook, gives current windowsize as a object
+│   └──  index.js                 # Finds root of html and start react
+├── README.md
+└── .env                          # Environment file, used to store API keys and such
 
-### Components
-
-Holds our components
-
-#### Places
-
-Contains the state of the users place objects.
-Holds the map compontant that also draws the marker coresponding to places.
-Perfomres user interactions such as adding places and viewing places.
-
-#### Firebase
-
-The directory that holds the firebase class that is instanciated only once.
-Context for the firebase instance that can be used to access specific references to firebase.
-
-#### Navigation
-
-Navigation panels based on authentication (if a user is logged in or not)
-
-#### Modal
-
-A modal (popup) wrapper that takes a compontant and displays it as a modal. This is used for some of our user interactions.
-
-#### Mapbox
-
-Our map compontant that draws the map and it's markers.
-
-#### Map
-Depricated, we decided not to use GoogleMaps. Old legacy code.
-
-#### Logout/Login/Signup/ForgotPassword
-
-Compontants for user authentication.
-
-#### Session
-
-Gives us a authentication hook that we can use to get information on the user or even if we have a logged in user.
-This is used currently to handel places.
-
-#### AddPlace
-
-Compontant that handels the users creation of a place object. After the user is done it's stored on our database and the map will update dynamicly.
-
-
-### Data
-Holds constants that we use.
+```
