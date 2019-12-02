@@ -63,7 +63,7 @@ const ProfileForm = () => {
 
   return (
     <form onSubmit={onSubmit}>
-      <label for={"username"}>New Username</label>
+      <label>New Username</label>
       <input
         className="InputField1"
         name="username"
@@ -82,7 +82,7 @@ const ProfileForm = () => {
         type="email"
         placeholder="Email"
       /> */}
-      <label for={"password"}>New Password</label>
+      <label>New Password</label>
       <input
         className="InputField1"
         name="password"
