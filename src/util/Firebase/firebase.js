@@ -61,6 +61,18 @@ class Firebase {
    */   
   doPasswordUpdate = password => this.auth.currentUser.updatePassword(password);
 
+  /**
+   * Update the current active user's email with the given one
+   * @param {string} password user email
+   */   
+  doEmailUpdate = email => this.auth.currentUser.updateEmail(email);
+
+  /**
+   * Update the current active user's displayname with the given one
+   * @param {string} password user username
+   */   
+  doDisplayNameUpdate = username => this.auth.currentUser.updateProfile({displayName: username});
+
   
   // *** User API ***
 

@@ -5,7 +5,7 @@ import ModalWrapper from "../Modal/Modal";
 import PlacesTable from "../PlacesTable/PlacesTable";
 import { usePlaces } from "../../data/model/PlaceModel";
 import { Place } from "../Place/Place";
-import { ProfileBtn } from "../Profile/Profile";
+import Profile, { ProfileBtn } from "../Profile/Profile";
 
 import Fab from "@material-ui/core/Fab";
 import Icon from "@material-ui/core/Icon";
@@ -83,6 +83,14 @@ const Places = () => {
     });
   };
 
+  const handleProfileClick = () => {
+    setModal({
+      showing: true,
+      comp: <Profile />,
+      bckgrnd: true
+    });
+  }
+
   return (
     <div className="Places">
       <MapButtons
@@ -102,7 +110,7 @@ const Places = () => {
         }
         displayList={places && places.length > 0}
       />
-      <ProfileBtn />
+      <ProfileBtn handleProfileClick={handleProfileClick}/>
       <MapBox
         handleMapClick={handleMapClick}
         handleMarkerClick={handleMarkerClick}
