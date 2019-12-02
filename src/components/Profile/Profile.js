@@ -49,7 +49,7 @@ const ProfileForm = () => {
     //   })
     //   .catch(error => setError(error));
     // }
-    if (typeof password === "string") {
+    if (password !== "") {
       // Change password
       firebase
         .doPasswordUpdate(password)
@@ -63,7 +63,7 @@ const ProfileForm = () => {
 
   return (
     <form onSubmit={onSubmit}>
-      <label for={"username"}>Username</label>
+      <label for={"username"}>New Username</label>
       <input
         className="InputField1"
         name="username"
@@ -82,14 +82,14 @@ const ProfileForm = () => {
         type="email"
         placeholder="Email"
       /> */}
-      <label for={"password"}>Password</label>
+      <label for={"password"}>New Password</label>
       <input
         className="InputField1"
         name="password"
         value={password}
         onChange={evt => setPassword(evt.target.value)}
         type="password"
-        placeholder="Password"
+        // placeholder="Password"
       />
       <div className="ProfileSubmitBtnContainer">
         <button disabled={false} type="submit" className="Btn1">
