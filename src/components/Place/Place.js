@@ -23,7 +23,7 @@ const Place = ({ place }) => {
     })
     .then(urls => {
       setImages(urls.map(url => { 
-        return {original: url, thumbnail: url}
+        return {original: url, thumbnail: url, sizes: 400}
       }));
     });
   }, [auth])
@@ -31,22 +31,27 @@ const Place = ({ place }) => {
   return (
     <div className="Place">
       <h2 className="PlaceName">{place.name}</h2>
-      <ImageGallery items={images}></ImageGallery>
-      <div className="PlaceInfo">
-        <div className="PlaceLocation">
-          <span className="PlaceTitle">Location: </span>
-          {place.location.formatted}
-        </div>
-        <div className="PlaceDate">
-          <span className="PlaceTitle">Date: </span>
-          {place.date.toLocaleDateString("sv")}
-        </div>{" "}
-        {/* TODO: Dynamic date */}
+      <div className="ImageGalleryContainer">
+        <ImageGallery items={images} showFullscreenButton={false}></ImageGallery>
       </div>
-      <p className="PlaceDescription">
-        <span className="PlaceTitle">Description: </span>
-        {place.description}
-      </p>
+      <div className="PlaceTextContainer">
+        <div className="PlaceInfo">
+          <div className="PlaceLocation">
+            <span className="PlaceTitle">Location: </span>
+            {place.location.formatted}
+          </div>
+          <div className="PlaceDate">
+            <span className="PlaceTitle">Date: </span>
+            {place.date.toLocaleDateString("sv")}
+          </div>{" "}
+          {/* TODO: Dynamic date */}
+        </div>
+        <div className="PlaceDescriptionContainer">
+        {place.description.split(/\n\s*\n/).map((para,idx) => {
+          return <p key={idx} className="PlaceDescription">{para}</p>;
+        })}
+        </div>
+      </div>
     </div>
   );
 };

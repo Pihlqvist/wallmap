@@ -3,21 +3,38 @@
 .PlaceName {
   color: #e7717d;
   font-size: 2rem;
+  text-align: center;
 }
 
 .PlaceInfo {
   display: flex;
   justify-content: space-between;
-  font-size: 1.2rem;
+  font-size: 1.1rem;
+}
+
+.PlaceTextContainer {
+  margin: 0 4rem;
 }
 
 .PlaceDescription {
-  font-size: 1.2rem;
+  font-size: 21px;
+  text-align: justify;
+  margin-top: 2em;
+  font-family: Georgia, Cambria, "Times New Roman", Times, serif;
+  line-height: 1.45;
+  color: rgba(0, 0, 0, 0.84);
+  overflow-wrap: break-word;
 }
 .PlaceTitle {
-  color: #859393;
-  font-size: 1.5rem;
+  color: #6e7474;
+  font-size: 1rem;
   display: block;
+  margin-bottom: 0.2rem;
+}
+
+.PlaceLocation {
+  max-width: 500px;
+  min-width: 500px;
 }
 
 .image-gallery-fullscreen-button::before,
@@ -45,11 +62,39 @@
   }
 }
 
+.ImageGalleryContainer {
+  max-height: 600px;
+}
+
+.ImageGalleryContainer img {
+  max-height: 400px;
+  object-fit: contain;
+  background: #e4ddd3;
+}
+
+.image-gallery-thumbnail img {
+  max-height: 100px;
+  object-fit: cover;
+}
+
 .image-gallery-thumbnail.active {
   border: 4px solid #e7717d;
 }
 @media (max-width: 768px) {
   .image-gallery-thumbnail.active {
     border: 3px solid #e7717d;
+  }
+
+  .PlaceTextContainer {
+    margin: 0 .3rem;
+  }
+  
+  .PlaceLocation {
+    max-width: 230px;
+    min-width: 230px;
+  }
+
+  .PlaceInfo {
+    font-size: 0.9rem;
   }
 }
