@@ -31,9 +31,9 @@ const Place = ({ place }) => {
   return (
     <div className="Place">
       <h2 className="PlaceName">{place.name}</h2>
-      <div className="ImageGalleryContainer">
+      {images.length > 0 && <div className="ImageGalleryContainer">
         <ImageGallery items={images} showFullscreenButton={false}></ImageGallery>
-      </div>
+      </div>}
       <div className="PlaceTextContainer">
         <div className="PlaceInfo">
           <div className="PlaceLocation">
