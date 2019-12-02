@@ -52,7 +52,7 @@ const AddPlaceForm = ({ hide, preLocation }) => {
           }
         })
         .catch(error => {
-          console.log("error", error.message);
+          console.error("error", error.message);
         });
     }
   }, []);
