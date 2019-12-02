@@ -5,7 +5,7 @@ import ModalWrapper from "../Modal/Modal";
 import PlacesTable from "../PlacesTable/PlacesTable";
 import { usePlaces } from "../../data/model/PlaceModel";
 import { Place } from "../Place/Place";
-import { ProfileBtn } from "../Profile/Profile";
+import Profile, { ProfileBtn } from "../Profile/Profile";
 
 import Fab from "@material-ui/core/Fab";
 import Icon from "@material-ui/core/Icon";
@@ -60,8 +60,8 @@ const Places = () => {
   };
 
   // Displays the place with the given id in a modal
-  const selectPlace = id => {
-    let aPlace = places.filter(place => place.id == id);
+  const selectPlace = pid => {
+    let aPlace = places.filter(place => place.id === pid);
     if (!aPlace) {
       console.error("Place not in array");
       return;
@@ -73,12 +73,20 @@ const Places = () => {
     });
   };
 
-  // Clicked on the map not a marker. 
+  // Clicked on the map not a marker.
   const handleMapClick = evt => {
     evt.preventDefault(); // Prevent context menu
     setModal({
       showing: true,
       comp: <AddPlace hide={hide} preLocation={evt.lngLat} />,
+      bckgrnd: true
+    });
+  };
+
+  const handleProfileClick = () => {
+    setModal({
+      showing: true,
+      comp: <Profile />,
       bckgrnd: true
     });
   };
@@ -100,8 +108,9 @@ const Places = () => {
             bckgrnd: false
           })
         }
+        displayList={places && places.length > 0}
       />
-      <ProfileBtn />
+      <ProfileBtn handleProfileClick={handleProfileClick} />
       <MapBox
         handleMapClick={handleMapClick}
         handleMarkerClick={handleMarkerClick}
@@ -118,13 +127,15 @@ const Places = () => {
 };
 
 // Button panel to interact with the map
-const MapButtons = ({ onClickAdd, onClickList }) => {
+const MapButtons = ({ onClickAdd, onClickList, displayList }) => {
+  const listStyle = displayList ? {} : { display: "none" };
+
   return (
     <div className="MapButtons">
       <Fab className="AddBtn MapBtn" onClick={onClickAdd}>
         <Icon>add</Icon>
       </Fab>
-      <Fab className="ListBtn MapBtn" onClick={onClickList}>
+      <Fab className="ListBtn MapBtn" onClick={onClickList} style={listStyle}>
         <Icon>list</Icon>
       </Fab>
     </div>

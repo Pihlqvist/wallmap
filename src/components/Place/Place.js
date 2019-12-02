@@ -2,67 +2,56 @@ import React, { useState, useEffect } from "react";
 import { useFirebase } from "../../util/Firebase";
 import { useAuth } from "../../util/UserAuth";
 import ImageGallery from "react-image-gallery";
+import { useImages } from "../../data/model/PlaceModel";
 
 import "./Place.css";
 
 const Place = ({ place }) => {
+
+  const [images, setImages] = useState([]);
+
   const firebase = useFirebase();
   const auth = useAuth();
-  const [imageUrl, setImageUrl] = useState("");
 
+  // Get images from Firebase Storage
   useEffect(() => {
-    console.log("setting image url");
-    const listRef = firebase.images(auth.user.uid, place.id);
-
-    listRef.listAll().then(res => {
-      res.items.forEach(function(itemRef) {
-        console.log(itemRef);
-        itemRef
-          .getDownloadURL()
-          .then(url => {
-            setImageUrl(url);
-          })
-          .catch(error => {
-            console.error(error);
-          });
-      });
+    firebase.images(auth.user.uid, place.id).listAll()
+    .then(placeDir => {
+      return Promise.all(placeDir.items.map(imgRef => {
+        return imgRef.getDownloadURL()
+      }));
+    })
+    .then(urls => {
+      setImages(urls.map(url => { 
+        return {original: url, thumbnail: url, sizes: 400}
+      }));
     });
-  }, [firebase]);
-
-  const images = [
-    {
-      original: "https://picsum.photos/id/1018/1000/600/",
-      thumbnail: "https://picsum.photos/id/1018/250/150/"
-    },
-    {
-      original: "https://picsum.photos/id/1015/1000/600/",
-      thumbnail: "https://picsum.photos/id/1015/250/150/"
-    },
-    {
-      original: "https://picsum.photos/id/1019/1000/600/",
-      thumbnail: "https://picsum.photos/id/1019/250/150/"
-    }
-  ];
+  }, [auth])
 
   return (
     <div className="Place">
       <h2 className="PlaceName">{place.name}</h2>
-      <ImageGallery items={images}></ImageGallery>
-      <div className="PlaceInfo">
-        <div className="PlaceLocation">
-          <span className="PlaceTitle">Location: </span>
-          {place.location.formatted}
-        </div>
-        <div className="PlaceDate">
-          <span className="PlaceTitle">Date: </span>
-          {place.date.toLocaleDateString("sv")}
-        </div>{" "}
-        {/* TODO: Dynamic date */}
+      <div className="ImageGalleryContainer">
+        <ImageGallery items={images} showFullscreenButton={false}></ImageGallery>
       </div>
-      <p className="PlaceDescription">
-        <span className="PlaceTitle">Description: </span>
-        {place.description}
-      </p>
+      <div className="PlaceTextContainer">
+        <div className="PlaceInfo">
+          <div className="PlaceLocation">
+            <span className="PlaceTitle">Location: </span>
+            {place.location.formatted}
+          </div>
+          <div className="PlaceDate">
+            <span className="PlaceTitle">Date: </span>
+            {place.date.toLocaleDateString("sv")}
+          </div>{" "}
+          {/* TODO: Dynamic date */}
+        </div>
+        <div className="PlaceDescriptionContainer">
+        {place.description.split(/\n\s*\n/).map((para,idx) => {
+          return <p key={idx} className="PlaceDescription">{para}</p>;
+        })}
+        </div>
+      </div>
     </div>
   );
 };

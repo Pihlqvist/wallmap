@@ -29,3 +29,26 @@
   /* transform: rotate(-45deg); */
   color: #fff;
 }
+
+.NavigationControl {
+  position: absolute;
+  bottom: 2rem;
+  right: 2rem;
+}
+
+.WaterMark {
+  position: absolute;
+  width: 94px;
+  height: 28px;
+
+  font-style: normal;
+  font-weight: bold;
+  font-size: 24px;
+  line-height: 28px;
+  color: #e7717d;
+
+  text-shadow: #1111118f 1px 0 3px;
+
+  bottom: 2rem;
+  left: .5rem;
+}

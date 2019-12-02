@@ -35,12 +35,13 @@
   z-index: 100;
   position: relative;
   margin: 1.75rem auto;
-  max-width: 1200px;
+  max-width: 800px;
 }
 
 .modal-header {
-  display: flex;
-  justify-content: flex-end;
+  position: absolute;
+  /* right: 2rem; */
+  z-index: 200;
 }
 
 .modal-close-button {

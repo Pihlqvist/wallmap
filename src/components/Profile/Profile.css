@@ -56,3 +56,47 @@
 .MenuListItem:hover {
   background-color: rgba(0, 0, 0, 0.08);
 }
+
+.MenuListItemLogin {
+  font-weight: 600;
+}
+
+.Profile {
+  display: flex;
+  flex-direction: column;
+  /* max-width: 380px; */
+  align-items: center;
+  align-self: center;
+}
+
+.Profile form {
+  display: flex;
+  flex-direction: column;
+  max-width: 300px;
+  min-width: 300px;
+  /* align-items: center; */
+}
+
+.Profile h2,
+.Profile form label {
+  color: #525a5a;
+}
+
+.Profile form label {
+  font-size: 0.9;
+  padding-left: 2px;
+}
+
+.Profile form label,
+.Profile form button {
+  margin-top: 1rem;
+  margin-bottom: 0.1rem;
+}
+
+.Profile form button {
+  max-width: 160px;
+}
+
+.ProfileSubmitBtnContainer {
+  margin: 0 auto;
+}

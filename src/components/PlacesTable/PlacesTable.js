@@ -38,8 +38,17 @@ const PlacesTable = ({ selectPlace }) => {
   const removePlace = place => {
     let respones = window.confirm(`Want to remove ${place.name}?`);
     if (respones) {
-      const mes = firebase.placeref(auth.user.uid, place.id).remove();
-      console.log(mes);
+      // Remove the place from our DB
+      firebase.placeref(auth.user.uid, place.id).remove();
+
+      // Remove the images from storage
+      firebase.images(auth.user.uid, place.id).listAll()
+      .then((placeDir) => {
+        placeDir.items.map(imgRef => {
+          imgRef.delete()
+        });
+      })
+      .catch(error => console.error(error));
     }
   };
 

@@ -3,13 +3,26 @@ body {
   font-family: "Roboto", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: rgba(228, 221, 211);
-  background-image: url("./assets/images/world.svg");
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-blend-mode: color-dodge;
+  color: #1f1f1f;
+}
+
+input, select, textarea{
+  color: grey;
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
+}
+
+.Background {
+  position: absolute;
+  top: 0;
+  background-color: rgba(228, 221, 211);
+  background-image: url("./assets/images/world.svg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-blend-mode: color-dodge;  
+  min-width: 100%;
+  min-height: 100%;
+  z-index: -1000;
 }

@@ -1,13 +1,15 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import * as opencage from "opencage-api-client";
 import { useFirebase } from "../../util/Firebase";
 import { useAuth } from "../../util/UserAuth";
 import { useDebounce } from "../../util/Debounce";
+import { ImageDropzone } from "../Dropzone/Dropzone";
+import SuggestionInputField from "../SuggestionInput/SuggestionInput";
 
 import "./AddPlace.css";
 
 const AddPlace = ({ hide, preLocation }) => (
-  <div className="FormContainer1">
+  <div className="AddPlaceFormContainer">
     <h1 className="AddPlaceTitle">Add a new place</h1>
     <AddPlaceForm hide={hide} preLocation={preLocation} />
   </div>
@@ -20,6 +22,7 @@ const AddPlaceForm = ({ hide, preLocation }) => {
   const [description, setDescription] = useState("");
   const [images, setImages] = useState(null); // FileList
   const [suggestions, setSuggestions] = useState([]);
+  const [locationData, setLocationData] = useState(null);
 
   const auth = useAuth();
   const firebase = useFirebase();
@@ -76,10 +79,10 @@ const AddPlaceForm = ({ hide, preLocation }) => {
     evt.preventDefault();
 
     // If we have the coordinates, create the place
-    if (suggestions[0]) {
+    if (locationData) {
       const refKey = firebase.place(auth.user.uid).push({
         name,
-        location: suggestions[0],
+        location: locationData,
         date: Date(date),
         description,
         image: ""
@@ -108,70 +111,49 @@ const AddPlaceForm = ({ hide, preLocation }) => {
 
   return (
     <form className="AddPlace" onSubmit={handleSubmit}>
-      <Row label="Name:">
-        <input
-          value={name}
-          onChange={evt => setName(evt.target.value)}
-          className="InputField1"
-          placeholder="Name of the place"
-        />
-      </Row>
-      <Row label="Location:">
-        <input
-          value={location}
-          list="datalist"
-          onChange={evt => setLocation(evt.target.value)}
-          className="InputField1"
-          placeholder="City, country or address"
-        />
-        <datalist id="datalist">
-          {suggestions.map((value, idx) => (
-            <option
-              key={idx}
-              value={value.formatted}
+      <div className="AddPlaceFormInputs">
+        <div className="AddPlaceRight">
+          <div className="Row">
+            <input
+              value={name}
+              onChange={evt => setName(evt.target.value)}
+              className="InputField1"
+              placeholder="Name of the place"
             />
-          ))}
-        </datalist>
-      </Row>
-      <Row label="Date:">
-        <input
-          value={date}
-          type="date"
-          onChange={evt => setDate(evt.target.value)}
-          className="InputField1"
-        />
-      </Row>
-      <Row label="Description">
-        <textarea
-          name="description"
-          rows="10"
-          value={description}
-          onChange={evt => setDescription(evt.target.value)}
-          className="InputField1"
-          placeholder="Here you can describe the place or your experience of the place you visited"
-        />
-      </Row>
-      <Row label="Image (Images)">
-        <input
-          type="file"
-          multiple
-          accept="image/png, image/jpeg"
-          onChange={evt => setImages(evt.target.files)}
-          className="BtnFile"
-        />
-      </Row>
-      <Row>
-        <input type="submit" className="Btn1" disabled={isInvalid}/>
-      </Row>
+          </div>
+          <SuggestionInputField 
+            location={location} 
+            setLocation={setLocation}
+            suggestions={suggestions}
+            setLocationData={setLocationData}
+          />
+          <div className="Row">
+            <input
+              value={date}
+              type="date"
+              onChange={evt => setDate(evt.target.value)}
+              className="InputField1"
+            />
+          </div>
+          <div className="Row">
+            <textarea
+              name="description"
+              rows="10"
+              value={description}
+              onChange={evt => setDescription(evt.target.value)}
+              className="TextArea1 InputField1"
+              placeholder="Here you can describe the place or your experience of the place you visited"
+            />
+          </div>
+        </div>
+        <div className="AddPlaceLeft">
+          <ImageDropzone setImages={setImages} />
+        </div>
+      </div>
+
+      <input type="submit" className="Btn1 AddPlaceBtn" disabled={isInvalid} value={"submit"} />
     </form>
   );
 };
-
-const Row = props => (
-  <div className="Row">
-    <span className="rowTitle">{props.label}</span>
-    <span className="rowContent">{props.children}</span>
-  </div>
-);
 
 export default AddPlace;

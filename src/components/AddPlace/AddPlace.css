@@ -1,26 +1,14 @@
-/* .rowContent {
-  display: block;
-} */
-
 .AddPlaceTitle {
-  color:#E7717D;
+  color: #e7717d;
   font-size: 2rem;
-}
-
-.rowTitle {
-  color: #859393;
-  font-size: 1.5rem;
-}
-
-.rowContent > input {
-  text-align: center;
-  font-size: 1.2rem;
 }
 
 /* Date picker style */
 [type="date"] {
-  background:#fff url(https://cdn1.iconfinder.com/data/icons/cc_mono_icon_set/blacks/16x16/calendar_2.png)  97% 50% no-repeat ;
-  color:#859393;
+  background: #fff
+    url(https://cdn1.iconfinder.com/data/icons/cc_mono_icon_set/blacks/16x16/calendar_2.png)
+    97% 50% no-repeat;
+  color: #859393;
 }
 [type="date"]::-webkit-inner-spin-button {
   visibility: hidden;
@@ -32,4 +20,76 @@
 textarea {
   width: 100%;
   height: 100%;
+}
+
+.AddPlaceFormInputs {
+  display: flex;
+  justify-content: space-between;
+}
+
+.AddPlaceBtnContainer {
+  max-width: 200px;
+}
+
+.AddPlaceFormContainer {
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  box-sizing: border-box;
+  max-width: 800px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.AddPlaceFormContainer form {
+  text-align: center;
+}
+
+.AddPlaceFormContainer form * {
+  margin-top: 0.3rem;
+  margin-bottom: 0.1rem;
+}
+
+.Row input {
+  width: 100%;
+}
+
+.AddPlaceRight {
+  min-width: 400px;
+  margin-right: 1rem;
+}
+
+.TextArea1 {
+  min-width: 400px;
+  max-width: 400px;
+  min-height: 100px;
+}
+
+.AddPlaceBtn {
+  min-width: 160px !important;
+}
+
+@media (max-width: 768px) {
+  .AddPlaceFormContainer {
+    max-width: auto;
+  }
+
+  .AddPlaceFormInputs {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .AddPlaceFormInputs {
+    max-width: auto;
+  }
+
+  .AddPlaceRight {
+    min-width: auto;
+  }
+
+  .TextArea1 {
+    min-width: auto;
+  }
 }
