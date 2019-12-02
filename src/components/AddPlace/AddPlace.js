@@ -89,7 +89,6 @@ const AddPlaceForm = ({ hide, preLocation }) => {
       });
 
       // Upload images to the place if we have any
-      console.log(images);
       if (images) {
         Array.from(images).forEach(img => {
           firebase

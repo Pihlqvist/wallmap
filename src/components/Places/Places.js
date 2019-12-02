@@ -89,7 +89,7 @@ const Places = () => {
       comp: <Profile />,
       bckgrnd: true
     });
-  }
+  };
 
   return (
     <div className="Places">
@@ -110,7 +110,7 @@ const Places = () => {
         }
         displayList={places && places.length > 0}
       />
-      <ProfileBtn handleProfileClick={handleProfileClick}/>
+      <ProfileBtn handleProfileClick={handleProfileClick} />
       <MapBox
         handleMapClick={handleMapClick}
         handleMarkerClick={handleMarkerClick}

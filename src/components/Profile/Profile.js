@@ -16,7 +16,6 @@ const Profile = () => {
 };
 
 const ProfileForm = () => {
-
   const user = useAuth().user;
 
   const [username, setUsername] = useState(user.displayName);
@@ -29,16 +28,17 @@ const ProfileForm = () => {
 
   const firebase = useFirebase();
 
-  const onSubmit = (evt) => {
+  const onSubmit = evt => {
     evt.preventDefault();
 
     if (username !== user.displayName) {
-      firebase.doDisplayNameUpdate(username)
-      .then(() => {
-        setMessageName("Username Updated!");
-        setError(null);
-      })
-      .catch(error => setError(error));
+      firebase
+        .doDisplayNameUpdate(username)
+        .then(() => {
+          setMessageName("Username Updated!");
+          setError(null);
+        })
+        .catch(error => setError(error));
     }
     // if (email !== user.email) {
     //   // Change password
@@ -51,14 +51,15 @@ const ProfileForm = () => {
     // }
     if (typeof password === "string") {
       // Change password
-      firebase.doPasswordUpdate(password)
-      .then(() => {
-        setMessagePass("Password Updated!");
-        setError(null);
-      })
-      .catch(error => setError(error));
+      firebase
+        .doPasswordUpdate(password)
+        .then(() => {
+          setMessagePass("Password Updated!");
+          setError(null);
+        })
+        .catch(error => setError(error));
     }
-  }
+  };
 
   return (
     <form onSubmit={onSubmit}>
@@ -101,17 +102,16 @@ const ProfileForm = () => {
       {error && <p>{error.message}</p>}
     </form>
   );
-}
+};
 
-const ProfileMenu = ({handleProfileClick, setDisplay}) => {
+const ProfileMenu = ({ handleProfileClick, setDisplay }) => {
   const firebase = useFirebase();
-
 
   // Closes the suggestion search if we click outside it's context
   useEffect(() => {
-    const onClickOutside = (evt) => {
-      setTimeout( () => setDisplay(false), 10);
-    }
+    const onClickOutside = evt => {
+      setTimeout(() => setDisplay(false), 10);
+    };
 
     document.body.addEventListener("click", onClickOutside, false);
     return () => document.body.removeEventListener("click", onClickOutside);
@@ -120,8 +120,13 @@ const ProfileMenu = ({handleProfileClick, setDisplay}) => {
   return (
     <div className="Popper">
       <ul className="MenuList">
-        <li className="MenuListItem" onClick={handleProfileClick}>Profile</li>
-        <li className="MenuListItem MenuListItemLogin" onClick={firebase.doSignOut}>
+        <li className="MenuListItem" onClick={handleProfileClick}>
+          Profile
+        </li>
+        <li
+          className="MenuListItem MenuListItemLogin"
+          onClick={firebase.doSignOut}
+        >
           Logout
         </li>
       </ul>
@@ -129,7 +134,7 @@ const ProfileMenu = ({handleProfileClick, setDisplay}) => {
   );
 };
 
-const ProfileBtn = ({handleProfileClick}) => {
+const ProfileBtn = ({ handleProfileClick }) => {
   const [display, setDisplay] = useState(false);
 
   return (
@@ -137,10 +142,12 @@ const ProfileBtn = ({handleProfileClick}) => {
       <Fab className="ProfileBtn MapBtn" onClick={() => setDisplay(!display)}>
         <Icon>person</Icon>
       </Fab>
-      {display && <ProfileMenu 
-        handleProfileClick={handleProfileClick} 
-        setDisplay={setDisplay}
-      />}
+      {display && (
+        <ProfileMenu
+          handleProfileClick={handleProfileClick}
+          setDisplay={setDisplay}
+        />
+      )}
     </div>
   );
 };
