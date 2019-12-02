@@ -1,30 +1,42 @@
 # WallMap
 
-## Short description of the project
+**WallMap** is a digital wall map. Users can make pins to any location in the world and save their photos with comments on how their trip went. The dynamic map and customisable pins make it ideal for showing your friends and family where you have been.
 
-This is an application where users can create a personal digital traveller map, to pin, store and show the images, information and dates of the places they have visited worldwide, and share that with friends. Friends can then comment and chat with user about each visited place. Pins can be categorised depending on travel reason (business, vacation, etc). 
+**Screenshot**
+![Image of WallMap](https://i.imgur.com/jeCSIdY.png)
 
-### How to use the webpage
+## Usage
+To create your own development server you need `node/npm` installed. The project have been tested on the lastest stable release, `node v11.15.0` and `npm 6.7.0`.
 
-First sign up.
-Then click on `add` in the upper left corner. You will have to fill out the form, the location is currently only working with latitude and longitude. After you submit your place it will be stored on our backend and will show up on the map. Everytime you use the website the place will be there.
+To get started do the following.
+```
+git clone https://github.com/Pihlqvist/wallmap.git
+cd wallmap
+npm install
+npm start
+```
 
-## What has been done
+The development server requier certain environment varibles to be set. These are put in the project root dir (wallmap). Just paste this in a `.env` file and fill in the correct keys.
+```
+# FIREBASE
+REACT_APP_API_KEY=
+REACT_APP_AUTH_DOMAIN=
+REACT_APP_DATABASE_URL=
+REACT_APP_PROJECT_ID=
+REACT_APP_STORAGE_BUCKET=
+REACT_APP_MESSAGING_SENDER_ID=
 
-We have done the main components and layout, user creation and login (authentication), and adding new visited places (not images yet). The places show up on the map as pins which can be clicked on and then pops up a place view/modal with the info of the place (with currently a temp random photo). Also the user can click on List button that shows the list of places visited. The app is connected to Firebase (Authentication and Realtime Database) and deployed (demo) on Firebase.  
+# Opencage
+REACT_APP_OCD_API_KEY=
 
-## What needs to be done
+# MAPBOX
+REACT_APP_MAPBOX_ACCESS_TOKEN=
+```
 
-- Protected Routes
-- Continue work on Places view (correct style, more than one image, chatfunction)
-- User control (Add/Remove images)
-- Fix Map stretching when reload
-- Place location should be a geolocation helper. User should be able to search with names.
-- User Profile Page
-- Create public page that user can share.
-- Viewing places from the list view, being able to delete/edit them from there.
-- Adding content to About
-- Styling and UX (Disticnt look for site and the map)
+## Contributors
+
+- Fredrik Pihlqvist fpih@kth.se
+- Ali El Tom  eltom@kth.se
 
 ## Project file structure (short description/purpose of each file)
 
