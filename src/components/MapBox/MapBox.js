@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import ReactMapGL, { Marker } from "react-map-gl";
+import ReactMapGL, { Marker, NavigationControl } from "react-map-gl";
 import useWindowSize from "../../util/WindowSize";
 
 import "./MapBox.css";
@@ -39,6 +39,9 @@ const MapBox = ({ handleMarkerClick, markers, handleMapClick }) => {
         mapStyle="mapbox://styles/eltom/ck3a7vlk607ez1cqv67nb9tjn"
         onContextMenu={handleMapClick}
       >
+        <div className="NavigationControl">
+          <NavigationControl showCompass={false}/>
+        </div>
         {markers &&
           markers.map(mark => {
             return (

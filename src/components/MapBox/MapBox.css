@@ -29,3 +29,9 @@
   /* transform: rotate(-45deg); */
   color: #fff;
 }
+
+.NavigationControl {
+  position: absolute;
+  bottom: 2rem;
+  right: 2rem;
+}
