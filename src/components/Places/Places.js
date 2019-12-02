@@ -100,7 +100,7 @@ const Places = () => {
             bckgrnd: false
           })
         }
-        displayList={Boolean(places)}
+        displayList={places && places.length > 0}
       />
       <ProfileBtn />
       <MapBox

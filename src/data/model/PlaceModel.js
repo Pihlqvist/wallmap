@@ -19,6 +19,9 @@ const usePlaces = () => {
         if (snapshot.val()) {
           setPlaces(convert(snapshot));
         }
+        else {
+          setPlaces([]);
+        }
       });
     } else {
       setPlaces([]);

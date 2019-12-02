@@ -13,10 +13,22 @@ const SuggestionInputField = ({
 
   const LIST_LENGTH = suggestions.length;
 
+  // Closes the suggestion search if we click outside it's context
+  useEffect(() => {
+    const onClickOutside = () => {
+      setDone(true);
+      setFocus(-1);
+    }
+    const modal = document.body.querySelector(".modal");
+    modal.addEventListener("click", onClickOutside, false);
+    return () => modal.removeEventListener("click", onClickOutside);
+  }, []);
+
   const handleSelect = location => {
     setLocation(location.formatted);
     setLocationData(location);
     setDone(true);
+    setFocus(-1);
   };
 
   const handleKeyDown = evt => {
