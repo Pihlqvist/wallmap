@@ -2,6 +2,12 @@
 
 **WallMap** is a digital wall map. Users can make pins to any location in the world and save their photos with comments on how their trip went. The dynamic map and customisable pins make it ideal for showing your friends and family where you have been.
 
+
+ ### How to use the webpage
+
+ First sign up (you will then be automatically logged in).
+ Then click on `add` in the upper left corner to add a place you have visited, or right click on the location in the map which automatically fills the location. After that the Add Place form will be displayed. You will have to fill out the form. After you submit your place it will be stored consistently on our Firebase backend and will show up on the map. Everytime you use the website the place/places will be there.
+
 **Screenshot**
 ![Image of WallMap](https://i.imgur.com/jeCSIdY.png)
 
