@@ -39,6 +39,9 @@ const MapBox = ({ handleMarkerClick, markers, handleMapClick }) => {
         mapStyle="mapbox://styles/eltom/ck3a7vlk607ez1cqv67nb9tjn"
         onContextMenu={handleMapClick}
       >
+        <div className="WaterMark">
+          WallMap
+        </div>
         <div className="NavigationControl">
           <NavigationControl showCompass={false}/>
         </div>
