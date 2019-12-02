@@ -20,7 +20,7 @@ const ProfileMenu = () => {
     <div className="Popper">
       <ul className="MenuList">
         <li className="MenuListItem">Profile</li>
-        <li className="MenuListItem" onClick={firebase.doSignOut}>
+        <li className="MenuListItem MenuListItemLogin" onClick={firebase.doSignOut}>
           Logout
         </li>
       </ul>

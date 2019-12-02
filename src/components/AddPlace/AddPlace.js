@@ -152,7 +152,7 @@ const AddPlaceForm = ({ hide, preLocation }) => {
         </div>
       </div>
 
-      <input type="submit" className="Btn1 AddPlaceBtn" disabled={isInvalid} />
+      <input type="submit" className="Btn1 AddPlaceBtn" disabled={isInvalid} value={"submit"} />
     </form>
   );
 };

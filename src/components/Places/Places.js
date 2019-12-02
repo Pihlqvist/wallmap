@@ -73,7 +73,7 @@ const Places = () => {
     });
   };
 
-  // Clicked on the map not a marker. 
+  // Clicked on the map not a marker.
   const handleMapClick = evt => {
     evt.preventDefault(); // Prevent context menu
     setModal({
@@ -100,6 +100,7 @@ const Places = () => {
             bckgrnd: false
           })
         }
+        displayList={Boolean(places)}
       />
       <ProfileBtn />
       <MapBox
@@ -118,13 +119,15 @@ const Places = () => {
 };
 
 // Button panel to interact with the map
-const MapButtons = ({ onClickAdd, onClickList }) => {
+const MapButtons = ({ onClickAdd, onClickList, displayList }) => {
+  const listStyle = displayList ? {} : { display: "none" };
+
   return (
     <div className="MapButtons">
       <Fab className="AddBtn MapBtn" onClick={onClickAdd}>
         <Icon>add</Icon>
       </Fab>
-      <Fab className="ListBtn MapBtn" onClick={onClickList}>
+      <Fab className="ListBtn MapBtn" onClick={onClickList} style={listStyle}>
         <Icon>list</Icon>
       </Fab>
     </div>

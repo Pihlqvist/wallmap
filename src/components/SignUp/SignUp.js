@@ -5,6 +5,8 @@ import { useHistory } from "react-router-dom";
 
 import * as ROUTES from "../../data/constants/routes";
 
+import "./SignUp.css";
+
 const SignUp = () => {
   return (
     <div className="FormContainer1">
@@ -105,7 +107,7 @@ const SignUpForm = () => {
 
 const SignUpLink = () => {
   return (
-    <p>
+    <p className="SignUpLinkPara">
       Don't have an account?{" "}
       <Link to={ROUTES.SIGN_UP} className="AllwaysBlueLinks">
         Sign Up

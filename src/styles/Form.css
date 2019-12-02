@@ -3,7 +3,7 @@
   margin-left: auto;
   margin-right: auto;
   box-sizing: border-box;
-  max-width: 340px;
+  max-width: 380px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -14,6 +14,10 @@
   box-shadow: 1px 1px 4px #ebebeb;
   -moz-box-shadow: 1px 1px 4px #ebebeb;
   -webkit-box-shadow: 1px 1px 4px #ebebeb;
+}
+
+.FormContainer1 h1 {
+  color: #525a5a;
 }
 
 .FormContainer1 form {
