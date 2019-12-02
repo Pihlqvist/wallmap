@@ -27,7 +27,7 @@ const PlacesTable = ({ selectPlace }) => {
             id: place.id,
             name: place.name,
             country: place.location.components.country,
-            date: place.date.toLocaleDateString(),
+            date: place.date.toLocaleDateString('sv'),
           };
         })
       );

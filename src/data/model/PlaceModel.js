@@ -38,8 +38,8 @@ const usePlaces = () => {
     let keys = Object.keys(snapshot.val());
     let firebasePlaces = Object.values(snapshot.val());
     firebasePlaces.forEach((place, idx) => {
-      place.id = keys[idx]; // Add key as object id
-      place.date = new Date(place.date); // Convert date to object
+      place.id = keys[idx];               // Add key as object id
+      place.date = new Date(place.date);  // Convert date to object
     });
     return firebasePlaces;
   };

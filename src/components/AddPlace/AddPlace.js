@@ -83,9 +83,8 @@ const AddPlaceForm = ({ hide, preLocation }) => {
       const refKey = firebase.place(auth.user.uid).push({
         name,
         location: locationData,
-        date: Date(date),
+        date,
         description,
-        image: ""
       });
 
       // Upload images to the place if we have any
