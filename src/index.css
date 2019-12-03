@@ -19,7 +19,7 @@ code {
   top: 0;
   background-color: rgba(228, 221, 211);
   background-image: url("./assets/images/world.svg");
-  background-size: cover;
+  background-size: contain;
   background-repeat: no-repeat;
   background-blend-mode: color-dodge;  
   min-width: 100%;
