@@ -104,7 +104,7 @@ const Places = () => {
         onClickHelp={() => 
           setModal({
             showing: true, 
-            comp: <Help hide={hide} />,
+            comp: <PlacesHelp hide={hide} />,
             bckgrnd: true
           })
         }
@@ -153,13 +153,13 @@ const MapButtons = ({ onClickAdd, onClickHelp, onClickList, displayList }) => {
 };
 
 // Help component 
-const Help = () => (
-  <div>
-    <div className="HelpHeader">
+const PlacesHelp = () => (
+  <div className="PlacesHelp">
+    <div className="PlacesHelpHeader">
       <h1>Need help in using WallMap ? </h1>
       <h2>Bellow is a short guideline</h2>
     </div>
-    <div className="HelpDescription">
+    <div className="PlacesHelpDescription">
       <section>
         <h3>Adding a place you have visited:</h3>
         <p>You can add a place in two ways that are very simple.</p>
@@ -183,6 +183,10 @@ const Help = () => (
       <section>
         <h3>Signing out</h3>
         <p>You can sign out by first left-clicking on the the user icon-button on the upper-right corner of the page. After clicking it click again on Log out. Then you will be signed out and returned to the log in page. </p>
+      </section>
+      <section>
+        <h3>Zooming</h3>
+        <p>You can zoom in or out in the map in two ways. Either through mouse scroll (if multi-touch pad then using two fingers zooming) or through the grey zoom buttons on the right bottom corner of the page.</p>
       </section>
 
     </div>
