@@ -146,7 +146,7 @@ const MapButtons = ({ onClickAdd, onClickHelp, onClickList, displayList }) => {
         <Icon>list</Icon>
       </Fab>
       <Fab className="HelpBtn MapBtn" onClick={onClickHelp}>
-        <Icon>help</Icon>
+        <span className="QuestionMark">?</span>
       </Fab>
     </div>
   );
