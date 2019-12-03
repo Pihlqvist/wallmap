@@ -30,24 +30,35 @@
   min-height: 30px;
   width: 175px;
   padding: 10px 20px;
-  margin: 40px auto;
+  margin: 30px auto;
+}
+.LandingTextArea {
+  display: flex;
+}
+.TextBox {
+  width: 350px;
+  margin: 0 30px; 
+  /* background-color: rgba(228, 221, 211, 0.8); */
+  opacity: 0.8;
+}
+.TextBox p{
+  text-align: justify;
+  color: #111;
 }
 
 @media only screen and (max-width: 768px) {
   /* For mobile phones: */
-  .LdBackgrImg {
-    height: 177.735px;
-    width: 431.42px;
-    position: absolute;
-    left: -35px;
-    right: 0;
-    margin-left: auto; 
-    margin-right: auto;
-  }
   .Tagline {
     font-size: 20px;
   }
   .BtnSignUp {
-    margin-top: 20px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+  .LandingTextArea {
+    flex-direction: column;
+  }
+  .TextBox {
+    max-width: 320px;
   }
 }
